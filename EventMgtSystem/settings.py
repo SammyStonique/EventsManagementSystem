@@ -26,7 +26,7 @@ SECRET_KEY = 'yip$&6ava@fo*e1vhcdrxdjret#y7)g(ve16fano#7e$ix!o1n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ezenevents.herokuapp.com']
 
 
 # Application definition
