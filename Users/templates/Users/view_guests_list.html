@@ -1,0 +1,37 @@
+{% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
+<div class="container" style="background-color: white; color: black;">
+    <legend>My Guest List</legend>
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags}}">{{message}}</div> {% endfor %} {% endif %}
+    <table class="table table-sm table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th>Guest Title</th>
+                <th>Guest Name</th>
+                <th>Email</th>
+                <th>Identification Number</th>
+                <th>Guest Role</th>
+                <th>Update</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        {% for viewguest in viewguests %}
+        <tr>
+            <td>{{viewguest.guesttitle}}</td>
+            <td>{{viewguest.guestname}}</td>
+            <td>{{viewguest.email}}</td>
+            <td>{{viewguest.identificationnumber}}</td>
+            <td>{{viewguest.guestrole}}</td>
+
+            <td><a class="btn btn-sm btn-info" href="{% url 'update_guests_list' viewguest.id %}">Update</a></td>
+
+            <td><a class="btn btn-sm btn-danger" href="{% url 'delete_guests_list' viewguest.id %}">Delete</a></td>
+
+        </tr>
+        {% endfor %}
+
+
+    </table>
+    <a class="btn btn-sm btn-success" href="{% url 'generate_pdf_guests'%}">Print Guests List</a>
+</div>
+{%endblock%}

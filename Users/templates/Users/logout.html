@@ -1,0 +1,9 @@
+{% extends 'Users/user_login.html'%} {%block content%}
+<div class="container" id="container">
+    <div class="form-container sign-in-container" style='padding-top: 40%;'>
+        <h1 style="margin-bottom: 10px;">You have been logged out</h1>
+        <div class="form-goup"><a href="{% url 'login' %}"><button class="btn btn-outline-info" style="margin-bottom: 10px;">Login Again</button></a></div>
+        <div class="form-goup"><a href="{% url 'events-homepage' %}"><button class="btn btn-outline-info" style="margin-bottom: 10px;">Go to Homepage</button></a></div>
+    </div>
+</div>
+{%endblock content%}

@@ -1,0 +1,34 @@
+{% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
+<div class="container" style="background-color: white; color: black;">
+    <legend>My Guest List</legend>
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags}}">{{message}}</div> {% endfor %} {% endif %}
+    <table class="table table-sm">
+        <tr>
+            <th></th>
+            <th>Guest Title</th>
+            <th>Guest Name</th>
+            <th>Email</th>
+            <th>Identification Number</th>
+            <th>Guest Role</th>
+
+        </tr>
+
+        {% for viewguest in viewguests %}
+        <tr>
+            <td><input type="checkbox"></td>
+            <td class="chkvalues">{{viewguest.guesttitle}}</td>
+            <td class="chkvalues">{{viewguest.guestname}}</td>
+            <td class="chkvalues">{{viewguest.email}}</td>
+            <td class="chkvalues">{{viewguest.identificationnumber}}</td>
+            <td class="chkvalues">{{viewguest.guestrole}}</td>
+
+        </tr>
+        {% endfor %}
+
+
+    </table>
+
+    <button class='btn btn-success' type="submit">Invite Selected Guests</button>
+</div>
+{%endblock%}

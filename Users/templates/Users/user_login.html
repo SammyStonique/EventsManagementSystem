@@ -1,0 +1,44 @@
+{%load crispy_forms_tags%} {%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{%static 'Users/user_login.css' %}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/45760a6434.js" crossorigin="anonymous"></script>
+    <title>Login Page</title>
+</head>
+
+<body>
+    {%block content%}
+    <div class="container" id="container">
+        <div class="form-container sign-in-container">
+            <form action="" method="POST">
+                {%csrf_token%}
+                <h1>Sign in</h1>
+                <div class="social-container">
+                    <a href="http://www.facebook.com" target=blank class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="http://www.googleplus.com" target=blank class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="http://www.linkedin.com" target=blank class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span> {{form.as_p}}
+                <div class="show-password"><input type="checkbox" id='box' onclick="reveal()">Show Password</div>
+                <a href="{% url 'password_reset' %}">Forgot your password?</a>
+                <div class="form-goup"><button class="btn btn-outline-info" type="submit">Login</button></div>
+            </form>
+        </div>
+    </div>
+
+    {%endblock content%}
+    <footer>
+        <p>
+            Created with <i class="fa fa-heart"></i> by
+            <a target="_blank" href="">SammyB</a>
+        </p>
+    </footer>
+    <script src="{% static 'Users/main.js'%}"></script>
+</body>
+
+</html>

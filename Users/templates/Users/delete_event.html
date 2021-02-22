@@ -1,0 +1,17 @@
+{% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
+
+<div class="container" style="background-color: white; color: black;">
+    <p>Are you sure you want to delete "{{item}}"?</p>
+
+    <form action="{% url 'delete_event' item.id  %}" method="POST">
+
+        {% csrf_token %}
+        <a class="btn btn-warning" href="{% url 'view_event' %}">Cancel</a>
+
+        <button class="btn btn-danger" type="submit">Confirm</button>
+    </form>
+
+
+</div>
+
+{%endblock content%}

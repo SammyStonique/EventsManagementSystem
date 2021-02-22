@@ -1,0 +1,81 @@
+body {
+    color: white;
+    background: linear-gradient(to right, #FF416C, #FF4B2B)
+}
+
+.navbar .navbar-expand-lg .navbar-light {
+    background-color: transparent;
+}
+
+.navbar-light .navbar-brand {
+    color: white;
+}
+
+.nav-item {
+    padding: 0 15px;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: white;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+}
+
+.nav-link active {
+    color: white;
+}
+
+.nav-item dropdown {
+    padding: 0 20px;
+}
+
+.nav-link dropdown-toggle {
+    color: white;
+}
+
+.nav-link {
+    color: white;
+}
+
+#body-content {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+#book-now {
+    margin-left: 100px;
+    margin-bottom: 20px;
+    background-color: #FF4B2B;
+    color: #fff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    transition: transform 80ms ease-in;
+}
+
+footer {
+    background-color: #222;
+    color: #fff;
+    font-size: 14px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    text-align: center;
+    z-index: 999;
+}
+
+footer p {
+    margin: 10px 0;
+}
+
+footer i {
+    color: red;
+}
+
+footer a {
+    color: #3c97bf;
+    text-decoration: none;
+}
