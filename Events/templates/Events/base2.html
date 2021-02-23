@@ -16,6 +16,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'Events/styles.css'%}">
     <title>Event Management System</title>
+    <script>
+        $(document).ready(function() {
+            $("select").change(function() {
+                $(this).find("option:selected").each(function() {
+                    var optionValue = $(this).attr("value");
+                    if (optionValue == "Invites Only") {
+                        $("#id_guests").show();
+                    } else {
+                        $("#id_guests").hide();
+                    }
+                });
+            }).change();
+        });
+    </script>
 </head>
 
 <body>

@@ -79,3 +79,7 @@ footer a {
     color: #3c97bf;
     text-decoration: none;
 }
+
+#id_guests {
+    display: none;
+}
