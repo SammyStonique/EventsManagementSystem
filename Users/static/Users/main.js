@@ -1,14 +1,6 @@
-/* Null check on updateHTML */
-function updateHTML(elmId, value) {
-    var elem = document.getElementById(elmId);
-    if (typeof elem !== 'undefined' && elem !== null) {
-        elem.innerHTML = value;
-    }
-}
-
 function reveal() {
     if (document.getElementById('box').checked) {
-        document.getElementById("pw").type = 'text';
+        document.getElementById("id_password").type = 'text';
     } else
-        document.getElementById("pw").type = 'password';
+        document.getElementById("id_password").type = 'password';
 }
