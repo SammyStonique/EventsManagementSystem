@@ -30,7 +30,7 @@
             {% if viewevent.eventtype == 'Invites Only' %}
             <td><a class="btn btn-sm btn-success" id="send_invites" href="{% url 'send_mail' viewevent.id %}">Send Invites</a></td>
             {%else%}
-            <td></td>
+            <td>Open</td>
             {%endif%}
         </tr>
         {% endfor %}
