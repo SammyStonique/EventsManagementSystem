@@ -6,16 +6,37 @@
     <legend>
         Add Guest
     </legend>
-    <form method="POST">
-        {%csrf_token%} {{form3.as_p}}
+    <form method="POST" class="form-horizontal">
+        {%csrf_token%}
+        <table>
+            <tr>
+                <td class="table-details"><label for="{{ form3.guesttitle.id_for_label }}">Guest Title:</label> {{ form3.guesttitle }}</td>
+                <td class="table-details"><label for="{{ form3.guestname.id_for_label }}">Guest Name:</label> {{ form3.guestname }}</td>
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form3.email.id_for_label }}">Email:</label> {{ form3.email }}</td>
+                <td class="table-details"><label for="{{ form3.identificationnumber.id_for_label }}">ID Number:</label> {{ form3.identificationnumber }}</td>
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form3.guestrole.id_for_label }}">Guest Role:</label> {{ form3.guestrole }}</td>
+            </tr>
+
+
+
+
+        </table>
+
+
+
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2" style="margin-top: 20px;">
                 <button class='btn btn-success' type="submit">Create</button>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" style="margin-top: 20px;">
                 <button class='btn btn-danger' type="reset">Reset</button>
             </div>
         </div>
+
     </form>
 
 </div>

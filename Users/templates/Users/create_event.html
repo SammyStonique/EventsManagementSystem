@@ -7,14 +7,32 @@
         Create Event
     </legend>
     <form method="POST" class="form-horizontal">
-        {%csrf_token%} {{form2.as_p}}
+        {%csrf_token%}
+        <table>
+            <tr>
+                <td class="table-details"><label for="{{ form2.eventtype.id_for_label }}">Event Type:</label> {{ form2.eventtype }}</td>
+                <td class="table-details"><label for="{{ form2.eventname.id_for_label }}">Event Name:</label> {{ form2.eventname }}</td>
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form2.venue.id_for_label }}">Venue:</label> {{ form2.venue }}</td>
+                <td class="table-details"><label for="{{ form2.description.id_for_label }}">Description:</label> {{ form2.description }}</td>
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form2.date.id_for_label }}">Date:</label> {{ form2.date }}</td>
+            </tr>
+            <td><label for="{{ form2.guests.id_for_label }}">Guests:</label> {{ form2.guests }}</td>
+
+
+
+        </table>
+
 
 
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2" style="margin-top: 20px;">
                 <button class='btn btn-success' type="submit">Create</button>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" style="margin-top: 20px;">
                 <button class='btn btn-danger' type="reset">Reset</button>
             </div>
         </div>
