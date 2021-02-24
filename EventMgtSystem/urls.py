@@ -41,6 +41,7 @@ urlpatterns = [
     path('print_events/', user_views.generate_pdf_events,name ='generate_pdf_events'),
     path('print_guests/', user_views.generate_pdf_guests,name ='generate_pdf_guests'),
     path('send_mail/<int:id>/', user_views.sendmail,name ='send_mail'),
+    path('guest_view_events/', user_views.guest_view_events, name='guest_view_events'),
     path('',include('Events.urls'))
 ]
 if settings.DEBUG :

@@ -1,6 +1,6 @@
 {% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
 <div class="container" style="background-color: white; color: black;padding:20px 10px;">
-    <legend>My Events</legend>
+    <legend>Upcoming Events</legend>
     {% if messages %} {% for message in messages %}
     <div class="alert alert-{{ message.tags}}">{{message}}</div> {% endfor %} {% endif %}
     <table class="table table-sm table-striped">
@@ -10,10 +10,8 @@
             <th>Venue</th>
             <th>Description</th>
             <th>Date</th>
-            <th>Guests</th>
-            <th>Update</th>
-            <th>Remove</th>
-            <th>Send Invites</th>
+            <th>Attend</th>
+
         </tr>
 
         {% for viewevent in viewevents %}
@@ -23,18 +21,16 @@
             <td>{{viewevent.venue}}</td>
             <td>{{viewevent.description}}</td>
             <td>{{viewevent.date}}</td>
-            <td>{%for guest in viewevent.guests.all %}{{guest.guestname}}, {%endfor%} </td>
-            <td><a class="btn btn-sm btn-info" href="{% url 'update_event' viewevent.id %}">Update</a></td>
-
-            <td><a class="btn btn-sm btn-danger" href="{% url 'delete_event' viewevent.id %}">Delete</a></td>
-            {% if viewevent.eventtype == 'Invites Only' %}
-            <td><a class="btn btn-sm btn-success" id="send_invites" href="{% url 'send_mail' viewevent.id %}">Send Invites</a></td>
+            {% if viewevent.eventtype == 'Public Event' %}
+            <td><a class="btn btn-sm btn-success" href="">Attend</a></td>
             {%else%}
-            <td></td>
+            <td>
+                <a class="btn btn-sm btn-warning" href="">Make an application</a>
+            </td>
             {%endif%}
         </tr>
-        {% endfor %}
 
+        {%endfor%}
 
     </table>
     <a class="btn btn-sm btn-success" href="{% url 'generate_pdf_events'%}">Print Events List</a>

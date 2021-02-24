@@ -87,6 +87,14 @@ def view_event(request):
 
     return render(request, 'Users/view_event.html',context)
 
+#Guest view upcoming events
+def guest_view_events(request):
+    viewevents = CreateEvent.objects.all()
+    
+    context = {'viewevents':viewevents}
+
+    return render(request, 'Users/Guests/guest_view_events.html',context)
+
 #Update events list
 def update_event(request, pk):
 
