@@ -61,8 +61,13 @@ table {
     white-space: nowrap;
 }
 
-table thead,
-tbody {
+table thead {
+    display: table;
+    width: 100%;
+    text-align: center;
+}
+
+table tbody {
     display: table;
     width: 100%;
 }
