@@ -17,6 +17,11 @@ class RegistrationForm(UserCreationForm):
         fields = ['username','email','password1','password2']
 
 class CreateEventForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        # first call parent's constructor
+        super(CreateEventForm, self).__init__(*args, **kwargs)
+        # there's a `fields` property now
+        self.fields['guests'].required = False
     guests =forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
                                           queryset=InvitedGuests.objects.all())
     class Meta:
