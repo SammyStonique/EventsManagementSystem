@@ -1,5 +1,5 @@
 {% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
-<div class="container" style="background-color: white; color: black;">
+<div class="container" style="background-color: white; color: black;padding-bottom: 20px;">
     <legend>My Guest List</legend>
     {% if messages %} {% for message in messages %}
     <div class="alert alert-{{ message.tags}}">{{message}}</div> {% endfor %} {% endif %}
