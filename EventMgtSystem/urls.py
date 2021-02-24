@@ -34,7 +34,6 @@ urlpatterns = [
     path('delete_event/<str:pk>/', user_views.delete_event, name="delete_event"),
     path('create_guests_list/', user_views.create_guests_list,name= 'create_guests_list'),
     path('view_guests_list/', user_views.view_guests_list,name= 'view_guests_list'),
-    path('invite_guests/', user_views.invite_guests,name= 'invite_guests'),
     path('update_guests_list/<str:pk>/', user_views.update_guests_list, name="update_guests_list"),
     path('delete_guests_list/<str:pk>/', user_views.delete_guests_list, name="delete_guests_list"),
     path('login/', auth_views.LoginView.as_view(template_name = 'Users/user_login.html'),name= 'login'),
