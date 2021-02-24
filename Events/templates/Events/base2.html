@@ -111,7 +111,8 @@
                 <h1>Management</h1>
                 <h1>Software</h1>
                 <p>Our Events Management System helps you simplify event planning for all your virtual,hybrid and in-person events. It has the power and flexibility global enterprises need and the scalability that event organizers love.</p>
-                <a href="{% url 'guest_view_events' %}"><button id="book-now"" class="btn btn-outline-info">View Upcoming Events</button></a>
+                {% if user.is_authenticated%}{%else%}
+                <a href="{% url 'guest_view_events' %}"><button id="book-now" class="btn btn-outline-info">View Upcoming Events</button></a> {% endif %}
             </div>
 
             <div class="col-md-6 ">
