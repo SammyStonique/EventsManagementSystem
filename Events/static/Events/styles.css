@@ -55,6 +55,18 @@ body {
     transition: transform 80ms ease-in;
 }
 
+table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+table thead,
+tbody {
+    display: table;
+    width: 100%;
+}
+
 footer {
     background-color: #222;
     color: #fff;
