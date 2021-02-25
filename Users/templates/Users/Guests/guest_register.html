@@ -1,0 +1,47 @@
+{% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
+<div class="container" style="background-color: white; color: black;padding:20px 10px;">
+    <legend>Event Registration</legend>
+
+    <form method="POST" class="form-horizontal">
+        {%csrf_token%}
+        <table>
+            <tr>
+                <td class="table-details"><label for="{{ form4.firstname.id_for_label }}">First Name:</label> {{ form4.firstname }}</td>
+                <td class="table-details"><label for="{{ form4.lastname.id_for_label }}">Last Name:</label> {{ form4.lastname }}</td>
+
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form4.email.id_for_label }}">Email:</label> {{ form4.email }}</td>
+                <td class="table-details"><label for="{{ form4.identificationnumber.id_for_label }}">ID Number:</label> {{ form4.identificationnumber }}</td>
+
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form4.phonenumber.id_for_label }}">Phone Number:</label> {{ form4.phonenumber }}</td>
+                <td class="table-details"><label for="{{ form4.gender.id_for_label }}">Gender:</label> {{ form4.gender }}</td>
+
+            </tr>
+            <tr>
+                <td><label for="{{ form4.county.id_for_label }}">County:</label> {{ form4.county }}</td>
+            </tr>
+
+
+
+
+        </table>
+
+
+
+        <div class="row">
+            <div class="col-md-2" style="margin-top: 20px;">
+                <a href=""><button class='btn btn-success' type="submit">Register</button>
+            </div>
+            <div class="col-md-2" style="margin-top: 20px;">
+                <button class='btn btn-danger' type="reset">Reset</button>
+            </div>
+        </div>
+
+    </form>
+
+
+</div>
+{%endblock%}

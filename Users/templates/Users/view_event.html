@@ -28,7 +28,7 @@
 
             <td><a class="btn btn-sm btn-danger" href="{% url 'delete_event' viewevent.id %}">Delete</a></td>
             {% if viewevent.eventtype == 'Invites Only' %}
-            <td><a class="btn btn-sm btn-success" id="send_invites" href="{% url 'send_mail' viewevent.id %}">Send Invites</a></td>
+            <td><a class="btn btn-sm btn-success" href="{% url 'send_mail' viewevent.id %}">Send Invites</a></td>
             {%else%}
             <td>Open</td>
             {%endif%}

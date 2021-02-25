@@ -2,12 +2,14 @@ from django.shortcuts import render,redirect,get_object_or_404
 from. forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import CreateEvent,InvitedGuests
+from .models import CreateEvent,InvitedGuests,GuestRegistration
 from .utils import render_to_pdf
 from django.template.loader import get_template
 from django.http import HttpResponse
 import smtplib
 from email.message import EmailMessage
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 
@@ -79,6 +81,27 @@ def create_event(request):
             return redirect('view_event')
 
     return render(request,'Users/create_event.html',{'form2':form2})
+
+#Guest Registration
+def guest_registration(request):
+    form4 = GuestRegistrationForm()
+    subject = 'Registration for this event'
+    content = 'Dear Sir/Madam,\n\nThank you.'
+    #email = request.POST.get('id_email','')
+    if request.method == 'POST':
+        form4 = GuestRegistrationForm(request.POST)
+        
+
+        if form4.is_valid:
+            form4.save()
+            guestregister = GuestRegistration.objects.all()
+            email = [obj.email for obj in guestregister]
+            send_mail(subject, content, settings.EMAIL_HOST_USER,email, fail_silently=False)
+            messages.success(request,'Success, you will receive a confirmation email')
+            return redirect('guest_view_events')
+            
+
+    return render(request,'Users/Guests/guest_register.html', {'form4':form4})
 #View events list
 def view_event(request):
     viewevents = CreateEvent.objects.all()
@@ -190,7 +213,7 @@ def sendmail(request,id):
     recipients =[obj.email for obj in guests]
     msg = EmailMessage()
     msg['Subject']= f'Invitation to {viewevent.eventname} event'
-    msg['From']= 'sammystonique@gmail.com'
+    msg['From']= 'ezenfinancialsevents@gmail.com'
     viewguests = viewevent.guests.all()
     msg['To']= recipients
     msg.set_content(f'Hello Sir/Madam,\n\n\nI would like to invite you to {viewevent.eventname}.\n\nIt will be held in {viewevent.venue} on {viewevent.date}.\n\nDescription: {viewevent.description}.\n\nKindly confirm your attendance. \n\n\nThank you.')
@@ -202,3 +225,18 @@ def sendmail(request,id):
     messages.success(request, f'Invites Succesfully sent')
     return redirect('view_event')
 
+#def guest_registration_email(request,id):
+#    guestregistration = get_object_or_404(GuestRegistration,id=email)
+#    recipients =[obj.email for obj in guestregistration]
+#    msg = EmailMessage()
+#    msg['Subject']= f'Registration for the event'
+#    msg['From']= 'ezenfinancialsevents@gmail.com'
+#   msg['To']= recipients
+#    msg.set_content(f'Hello Sir/Madam,\n\n\nYour registration is succesful')
+    
+#    server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+#   server.login('ezenfinancialsevents@gmail.com','eventsmanagement')
+#    server.send_message(msg)
+#    server.quit()
+#    messages.success(request, f'Registration email Succesfully sent')
+#    return redirect('guest_view_events')

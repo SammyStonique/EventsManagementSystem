@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import CreateEvent,InvitedGuests
+from .models import CreateEvent,InvitedGuests,GuestRegistration
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -35,4 +35,9 @@ class InvitedGuestsForm(ModelForm):
         model = InvitedGuests
         fields = ['guesttitle','guestname','email','identificationnumber','guestrole']
         help_texts = ''
-        
+
+class GuestRegistrationForm(ModelForm):
+    class Meta:
+        model = GuestRegistration
+        fields = ['firstname','lastname','email','identificationnumber','phonenumber','gender','county']   
+        help_texts = ''
