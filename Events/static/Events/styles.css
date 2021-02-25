@@ -67,21 +67,6 @@ body {
     outline: none;
 }
 
-button {
-    margin-left: 100px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #fff;
-    background-color: #FF4B2B;
-    color: #FFFFFF;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-}
-
 table {
     display: block;
     overflow-x: auto;
