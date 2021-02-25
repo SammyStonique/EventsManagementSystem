@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 body {
     color: white;
-    background: linear-gradient(to right, #FF416C, #FF4B2B)
+    background: linear-gradient(to right, #FF416C, #FF4B2B);
+    font-family: 'Montserrat', sans-serif;
 }
 
 .navbar .navbar-expand-lg .navbar-light {
