@@ -49,6 +49,24 @@ def generate_pdf_guests(request,*args,**kwargs):
             response['Content-Disposition'] = content
             return response
         return HttpResponse("Not found")
+
+#Print Applicants list
+def generate_pdf_applicants(request,*args,**kwargs):
+        viewapplications = GuestRegistration.objects.all()
+        template = get_template('Users/print_applicants_list.html')
+        context = {'viewapplications':viewapplications}
+        html = template.render(context)
+        pdf = render_to_pdf('Users/print_applicants_list.html',context)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            filename = "Applicants_list.pdf" 
+            content = "inline; filename='%s'" %(filename)
+            download = request.GET.get("download")
+            if download:
+                content = "attachment; filename='%s'" %(filename)
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse("Not found")
 # Create your views here.
 def register(request):
     if request.method == 'POST':
@@ -110,6 +128,12 @@ def view_event(request):
 
     return render(request, 'Users/view_event.html',context)
 
+#Event Organizer view of guest applications
+def view_applications(request):
+    viewapplications = GuestRegistration.objects.all()
+    context = {'viewapplications':viewapplications}
+
+    return render(request,'Users/event_applications.html',context)
 #Guest view upcoming events
 def guest_view_events(request):
     viewevents = CreateEvent.objects.all()
@@ -143,6 +167,15 @@ def delete_event(request, pk):
 	context = {'item':event}
 	return render(request, 'Users/delete_event.html', context)
 
+#Reject an event application
+def reject_application(request, pk):
+	application = GuestRegistration.objects.get(id=pk)
+	if request.method == "POST":
+		application.delete()
+		return redirect('view_applications')
+
+	context = {'item':application}
+	return render(request, 'Users/reject_application.html', context)
 #Create a guests list
 def create_guests_list(request):
     form3 = InvitedGuestsForm()

@@ -1,0 +1,36 @@
+{% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
+<div class="container" style="background-color: white; color: black;padding:20px 10px;">
+    <legend>Event Applications</legend>
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags}}">{{message}}</div> {% endfor %} {% endif %}
+    <table class="table table-sm table-striped">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>ID Number</th>
+            <th>Phone Number</th>
+            <th>Gender</th>
+            <th>County</th>
+            <th>Accept</th>
+            <th>Reject</th>
+        </tr>
+
+        {% for viewapplication in viewapplications %}
+        <tr>
+            <td>{{viewapplication.firstname}}</td>
+            <td>{{viewapplication.lastname}}</td>
+            <td>{{viewapplication.email}}</td>
+            <td>{{viewapplication.identificationnumber}}</td>
+            <td>{{viewapplication.phonenumber}}</td>
+            <td>{{viewapplication.gender}}</td>
+            <td>{{viewapplication.county}}</td>
+            <td><a class="btn btn-sm btn-info" href="">Accept</a></td>
+
+            <td><a class="btn btn-sm btn-danger" href="{% url 'reject_application' viewapplication.id%}">Reject</a></td>
+
+            {%endfor%}
+    </table>
+    <a class="btn btn-sm btn-success" href="{% url 'generate_pdf_applicants'%}">Print Applicants List</a>
+</div>
+{%endblock%}

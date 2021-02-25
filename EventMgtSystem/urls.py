@@ -44,6 +44,9 @@ urlpatterns = [
     #path('guest_registration_email/', user_views.guest_registration_email,name ='guest_registration_email'),
     path('guest_view_events/', user_views.guest_view_events, name='guest_view_events'),
     path('guest_registration/', user_views.guest_registration,name= 'guest_registration'),
+    path('view_applications/', user_views.view_applications,name= 'view_applications'),
+    path('reject_application/<str:pk>/', user_views.reject_application, name="reject_application"),
+    path('print_applications/', user_views.generate_pdf_applicants,name ='generate_pdf_applicants'),
     path('',include('Events.urls'))
 ]
 if settings.DEBUG :
