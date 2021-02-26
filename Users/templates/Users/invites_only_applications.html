@@ -1,0 +1,40 @@
+{% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
+<div class="container" style="background-color: white; color: black;padding:20px 10px;">
+    <legend>Event Applications</legend>
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags}}">{{message}}</div> {% endfor %} {% endif %}
+    <table class="table table-sm table-striped">
+        <tr>
+            <th>Title</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>ID Number</th>
+            <th>Phone Number</th>
+            <th>Gender</th>
+            <th>County</th>
+            <th>Reservation</th>
+            <th>Accept</th>
+            <th>Reject</th>
+        </tr>
+
+        {% for viewinvitesapplication in viewinvitesapplications %}
+        <tr>
+            <td>{{viewinvitesapplication.title}}</td>
+            <td>{{viewinvitesapplication.firstname}}</td>
+            <td>{{viewinvitesapplication.lastname}}</td>
+            <td>{{viewinvitesapplication.email}}</td>
+            <td>{{viewinvitesapplication.identificationnumber}}</td>
+            <td>{{viewinvitesapplication.phonenumber}}</td>
+            <td>{{viewinvitesapplication.gender}}</td>
+            <td>{{viewinvitesapplication.county}}</td>
+            <td>{{viewinvitesapplication.reservation}}</td>
+            <td><a class="btn btn-sm btn-info" href="">Accept</a></td>
+
+            <td><a class="btn btn-sm btn-danger" href="{% url 'reject_invites_only_application' viewinvitesapplication.id%}">Reject</a></td>
+
+            {%endfor%}
+    </table>
+    <a class="btn btn-sm btn-success" href="{% url 'generate_pdf_invites_only_applicants'%}">Print Applicants List</a>
+</div>
+{%endblock%}

@@ -25,7 +25,7 @@
             <td><a class="btn btn-sm btn-success" href="{% url 'guest_registration'%}">Attend</a></td>
             {%else%}
             <td>
-                <a class="btn btn-sm btn-warning" href="">Make an application</a>
+                <a class="btn btn-sm btn-warning" href="{% url 'invites_only_application'%}">Make an application</a>
             </td>
             {%endif%}
         </tr>

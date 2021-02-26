@@ -46,7 +46,7 @@ class InvitedGuests(models.Model):
 class GuestRegistration(models.Model):
     GENDER = (('Male','Male'),('Female','Female'),('Other','Other'))
     COUNTY = (('Kisumu','Kisumu'),('Nairobi','Nairobi'),('Mombasa','Mombasa'),('Siaya','Siaya'))
-
+    
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
     email= models.EmailField(max_length=100)
@@ -54,6 +54,25 @@ class GuestRegistration(models.Model):
     phonenumber = models.CharField(max_length=100)
     gender = models.CharField(max_length=100,choices=GENDER,default='')
     county = models.CharField(max_length=100,choices=COUNTY,default='')
+
+    def __str__(self):
+        return self.firstname
+
+class InvitesOnlyRegistration(models.Model):
+    TITLE = (('Dr.', 'Dr.'),('Sir','Sir'),('Madam','Madam'),('Mr.','Mr.'),('Mrs.','Mrs.'))
+    GENDER = (('Male','Male'),('Female','Female'),('Other','Other'))
+    COUNTY = (('Kisumu','Kisumu'),('Nairobi','Nairobi'),('Mombasa','Mombasa'),('Siaya','Siaya'))
+    RESERVATION = (('VVIP','VVIP'),('VIP','VIP'),('Normal','Normal'))
+
+    title = models.CharField(max_length=100,choices=TITLE,default='')
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    email= models.EmailField(max_length=100)
+    identificationnumber = models.CharField(max_length=100)
+    phonenumber = models.CharField(max_length=100)
+    gender = models.CharField(max_length=100,choices=GENDER,default='')
+    county = models.CharField(max_length=100,choices=COUNTY,default='')
+    reservation = models.CharField(max_length=100, choices=RESERVATION,default='')
 
     def __str__(self):
         return self.firstname

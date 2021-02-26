@@ -1,0 +1,51 @@
+{% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
+<div class="container" style="background-color: white; color: black;padding:20px 10px;">
+    <legend>Invites Only Event Registration</legend>
+
+    <form method="POST" class="form-horizontal">
+        {%csrf_token%}
+        <table>
+            <tr>
+                <td class="table-details"><label for="{{ form5.title.id_for_label }}">Title:</label> {{ form5.title }}</td>
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form5.firstname.id_for_label }}">First Name:</label> {{ form5.firstname }}</td>
+                <td class="table-details"><label for="{{ form5.lastname.id_for_label }}">Last Name:</label> {{ form5.lastname }}</td>
+
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form5.email.id_for_label }}">Email:</label> {{ form5.email }}</td>
+                <td class="table-details"><label for="{{ form5.identificationnumber.id_for_label }}">ID Number:</label> {{ form5.identificationnumber }}</td>
+
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form5.phonenumber.id_for_label }}">Phone Number:</label> {{ form5.phonenumber }}</td>
+                <td class="table-details"><label for="{{ form5.gender.id_for_label }}">Gender:</label> {{ form5.gender }}</td>
+
+            </tr>
+            <tr>
+                <td><label for="{{ form5.county.id_for_label }}">County:</label> {{ form5.county }}</td>
+                <td><label for="{{ form5.reservation.id_for_label }}">Reservation:</label> {{ form5.reservation }}</td>
+            </tr>
+
+
+
+
+        </table>
+
+
+
+        <div class="row">
+            <div class="col-md-2" style="margin-top: 20px;">
+                <a href=""><button class='btn btn-success' type="submit">Apply</button>
+            </div>
+            <div class="col-md-2" style="margin-top: 20px;">
+                <button class='btn btn-danger' type="reset">Reset</button>
+            </div>
+        </div>
+
+    </form>
+
+
+</div>
+{%endblock%}

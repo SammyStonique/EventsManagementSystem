@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from. forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import CreateEvent,InvitedGuests,GuestRegistration
+from .models import *
 from .utils import render_to_pdf
 from django.template.loader import get_template
 from django.http import HttpResponse
@@ -67,6 +67,24 @@ def generate_pdf_applicants(request,*args,**kwargs):
             response['Content-Disposition'] = content
             return response
         return HttpResponse("Not found")
+
+#Print invites only list
+def generate_pdf_invites_only_applicants(request,*args,**kwargs):
+        viewinvitesapplications = InvitesOnlyRegistration.objects.all()
+        template = get_template('Users/print_invites_applications.html')
+        context = {'viewinvitesapplications':viewinvitesapplications}
+        html = template.render(context)
+        pdf = render_to_pdf('Users/print_invites_applications.html',context)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            filename = "Applicants_list.pdf" 
+            content = "inline; filename='%s'" %(filename)
+            download = request.GET.get("download")
+            if download:
+                content = "attachment; filename='%s'" %(filename)
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse("Not found")
 # Create your views here.
 def register(request):
     if request.method == 'POST':
@@ -103,9 +121,7 @@ def create_event(request):
 #Guest Registration
 def guest_registration(request):
     form4 = GuestRegistrationForm()
-    subject = 'Registration for this event'
-    content = 'Dear Sir/Madam,\n\nThank you.'
-    #email = request.POST.get('id_email','')
+   
     if request.method == 'POST':
         form4 = GuestRegistrationForm(request.POST)
         
@@ -114,12 +130,35 @@ def guest_registration(request):
             form4.save()
             guestregister = GuestRegistration.objects.all()
             email = [obj.email for obj in guestregister]
+            subject = 'Registration for this event'
+            content = f'Dear Sir/Madam,\n\nThank you.'
             send_mail(subject, content, settings.EMAIL_HOST_USER,email, fail_silently=False)
             messages.success(request,'Success, you will receive a confirmation email')
             return redirect('guest_view_events')
             
 
     return render(request,'Users/Guests/guest_register.html', {'form4':form4})
+
+#Invites Only Event Application
+def invites_only_application(request):
+    form5 = InvitesOnlyRegistrationForm()
+    
+    if request.method == 'POST':
+        form5 = InvitesOnlyRegistrationForm(request.POST)
+        
+
+        if form5.is_valid:
+            form5.save()
+            guestregister = InvitesOnlyRegistration.objects.all()
+            email = [obj.email for obj in guestregister]
+            subject = 'Registration for this event'
+            content = f'Dear Sir/Madam,\n\nThank you.'
+            send_mail(subject, content, settings.EMAIL_HOST_USER,email, fail_silently=False)
+            messages.success(request,'Your application has been received. You will be notified if it\'s succesful')
+            return redirect('guest_view_events')
+            
+
+    return render(request,'Users/Guests/invites_only_registration.html', {'form5':form5})
 #View events list
 def view_event(request):
     viewevents = CreateEvent.objects.all()
@@ -128,12 +167,19 @@ def view_event(request):
 
     return render(request, 'Users/view_event.html',context)
 
-#Event Organizer view of guest applications
+#Event Organizer view of public event guests
 def view_applications(request):
     viewapplications = GuestRegistration.objects.all()
     context = {'viewapplications':viewapplications}
 
     return render(request,'Users/event_applications.html',context)
+
+#Event Organizer view of invites only applications
+def view_invites_only_applications(request):
+    viewinvitesapplications = InvitesOnlyRegistration.objects.all()
+    context = {'viewinvitesapplications':viewinvitesapplications}
+
+    return render(request,'Users/invites_only_applications.html',context)
 #Guest view upcoming events
 def guest_view_events(request):
     viewevents = CreateEvent.objects.all()
@@ -167,12 +213,32 @@ def delete_event(request, pk):
 	context = {'item':event}
 	return render(request, 'Users/delete_event.html', context)
 
-#Reject an event application
+#Reject a public event application
 def reject_application(request, pk):
 	application = GuestRegistration.objects.get(id=pk)
 	if request.method == "POST":
 		application.delete()
 		return redirect('view_applications')
+
+	context = {'item':application}
+	return render(request, 'Users/reject_application.html', context)
+
+#Reject Invites Only application
+def reject_invites_only_application(request, pk):
+	application = InvitesOnlyRegistration.objects.get(id=pk)
+	if request.method == "POST":
+		application.delete()
+		return redirect('view_invites_only_applications')
+
+	context = {'item':application}
+	return render(request, 'Users/reject_invites_only_application.html', context)
+
+#Reject Invite only application
+def reject_invites_only_application(request, pk):
+	application = InvitesOnlyRegistration.objects.get(id=pk)
+	if request.method == "POST":
+		application.delete()
+		return redirect('invites_only_applications')
 
 	context = {'item':application}
 	return render(request, 'Users/reject_application.html', context)
