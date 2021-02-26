@@ -312,7 +312,7 @@ def sendmail(request,id):
     msg['To']= recipients
     msg.set_content(f'Hello Sir/Madam,\n\n\nI would like to invite you to {viewevent.eventname}.\n\nIt will be held in {viewevent.venue} on {viewevent.date}.\n\nDescription: {viewevent.description}.\n\nKindly confirm your attendance. \n\n\nThank you.')
     
-    server = smtplib.SMTP_SSL('smtp.gmail.com',465)
+    server = smtplib.SMTP_SSL('mail.ezenfinancials.com',587)
     server.login('otieno.samuel@ezenfinancials.com','@Sillykbian1')
     server.send_message(msg)
     server.quit()
