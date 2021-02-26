@@ -307,13 +307,13 @@ def sendmail(request,id):
     recipients =[obj.email for obj in guests]
     msg = EmailMessage()
     msg['Subject']= f'Invitation to {viewevent.eventname} event'
-    msg['From']= 'ezenfinancialsevents@gmail.com'
+    msg['From']= 'otieno.samuel@ezenfinancials.com'
     viewguests = viewevent.guests.all()
     msg['To']= recipients
     msg.set_content(f'Hello Sir/Madam,\n\n\nI would like to invite you to {viewevent.eventname}.\n\nIt will be held in {viewevent.venue} on {viewevent.date}.\n\nDescription: {viewevent.description}.\n\nKindly confirm your attendance. \n\n\nThank you.')
     
     server = smtplib.SMTP_SSL('smtp.gmail.com',465)
-    server.login('ezenfinancialsevents@gmail.com','eventsmanagement')
+    server.login('otieno.samuel@ezenfinancials.com','@Sillykbian1')
     server.send_message(msg)
     server.quit()
     messages.success(request, f'Invites Succesfully sent')
