@@ -1,6 +1,6 @@
 {% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
 <div class="container" style="background-color: white; color: black;padding:20px 10px;">
-    <legend>Event Applications</legend>
+    <legend>Invites Only Event Applications</legend>
     {% if messages %} {% for message in messages %}
     <div class="alert alert-{{ message.tags}}">{{message}}</div> {% endfor %} {% endif %}
     <table class="table table-sm table-striped">
