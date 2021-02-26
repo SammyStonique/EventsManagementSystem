@@ -225,23 +225,15 @@ def reject_application(request, pk):
 
 #Reject Invites Only application
 def reject_invites_only_application(request, pk):
-	application = InvitesOnlyRegistration.objects.get(id=pk)
+	invitesonlyapplication = InvitesOnlyRegistration.objects.get(id=pk)
 	if request.method == "POST":
-		application.delete()
+		invitesonlyapplication.delete()
 		return redirect('view_invites_only_applications')
 
-	context = {'item':application}
+	context = {'item':invitesonlyapplication}
 	return render(request, 'Users/reject_invites_only_application.html', context)
 
-#Reject Invite only application
-def reject_invites_only_application(request, pk):
-	application = InvitesOnlyRegistration.objects.get(id=pk)
-	if request.method == "POST":
-		application.delete()
-		return redirect('invites_only_applications')
 
-	context = {'item':application}
-	return render(request, 'Users/reject_application.html', context)
 #Create a guests list
 def create_guests_list(request):
     form3 = InvitedGuestsForm()

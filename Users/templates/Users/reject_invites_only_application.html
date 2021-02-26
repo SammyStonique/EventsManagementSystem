@@ -6,7 +6,7 @@
     <form action="{% url 'reject_invites_only_application' item.id  %}" method="POST">
 
         {% csrf_token %}
-        <a class="btn btn-warning" href="{% url 'invites_only_applications' %}">Cancel</a>
+        <a href="{% url 'view_invites_only_applications' %}" class="btn btn-warning">Cancel</a>
 
         <button class="btn btn-danger" type="submit">Confirm</button>
     </form>
