@@ -22,10 +22,10 @@
             <td>{{viewevent.description}}</td>
             <td>{{viewevent.date}}</td>
             {% if viewevent.eventtype == 'Public Event' %}
-            <td><a class="btn btn-sm btn-success" href="{% url 'guest_registration'%}">Attend</a></td>
+            <td><a class="btn btn-sm btn-success" href="{% url 'guest_registration' viewevent.id%}">Attend</a></td>
             {%else%}
             <td>
-                <a class="btn btn-sm btn-warning" href="{% url 'invites_only_application'%}">Make an application</a>
+                <a class="btn btn-sm btn-warning" href="{% url 'invites_only_application' viewevent.id%}">Apply</a>
             </td>
             {%endif%}
         </tr>

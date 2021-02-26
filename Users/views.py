@@ -119,20 +119,21 @@ def create_event(request):
     return render(request,'Users/create_event.html',{'form2':form2})
 
 #Guest Registration
-def guest_registration(request):
+def guest_registration(request,id):
     form4 = GuestRegistrationForm()
-   
+    viewevent = get_object_or_404(CreateEvent,id=id)
     if request.method == 'POST':
         form4 = GuestRegistrationForm(request.POST)
         
 
         if form4.is_valid:
             form4.save()
-            guestregister = GuestRegistration.objects.all()
-            email = [obj.email for obj in guestregister]
-            subject = 'Registration for this event'
-            content = f'Dear Sir/Madam,\n\nThank you.'
-            send_mail(subject, content, settings.EMAIL_HOST_USER,email, fail_silently=False)
+            name = form4.cleaned_data.get('firstname')
+            email =  form4.cleaned_data.get('email')
+            recipient = [email]
+            subject = f'Registration for the {viewevent.eventname} event'
+            content = f'Dear {name},\n\nYou have succesfully enrolled for the {viewevent.eventname} event that is to be held on {viewevent.date} in {viewevent.venue}.\n\nDescription: {viewevent.description}.\n\nFor more enquiries, email us at ezenfinancialsevents@gmail.com\n\nSee you there.'
+            send_mail(subject, content, settings.EMAIL_HOST_USER,recipient, fail_silently=False)
             messages.success(request,'Success, you will receive a confirmation email')
             return redirect('guest_view_events')
             
@@ -140,8 +141,9 @@ def guest_registration(request):
     return render(request,'Users/Guests/guest_register.html', {'form4':form4})
 
 #Invites Only Event Application
-def invites_only_application(request):
+def invites_only_application(request,id):
     form5 = InvitesOnlyRegistrationForm()
+    viewevent = get_object_or_404(CreateEvent,id=id)
     
     if request.method == 'POST':
         form5 = InvitesOnlyRegistrationForm(request.POST)
@@ -149,11 +151,12 @@ def invites_only_application(request):
 
         if form5.is_valid:
             form5.save()
-            guestregister = InvitesOnlyRegistration.objects.all()
-            email = [obj.email for obj in guestregister]
-            subject = 'Registration for this event'
-            content = f'Dear Sir/Madam,\n\nThank you.'
-            send_mail(subject, content, settings.EMAIL_HOST_USER,email, fail_silently=False)
+            name = form5.cleaned_data.get('firstname')
+            email =  form5.cleaned_data.get('email')
+            recipient = [email]
+            subject = f'Registration for the {viewevent.eventname} event'
+            content = f'Dear {name},\n\nYour application for the {viewevent.eventname} event has been succesfully received. You will receive a confirmation email.\n\nThank you.'
+            send_mail(subject, content, settings.EMAIL_HOST_USER,recipient, fail_silently=False)
             messages.success(request,'Your application has been received. You will be notified if it\'s succesful')
             return redirect('guest_view_events')
             
