@@ -51,6 +51,7 @@ urlpatterns = [
     path('reject_invites_only_application/<str:pk>/', user_views.reject_invites_only_application, name="reject_invites_only_application"),
     path('print_applications/', user_views.generate_pdf_applicants,name ='generate_pdf_applicants'),
     path('print_invites_only_applications/', user_views.generate_pdf_invites_only_applicants,name ='generate_pdf_invites_only_applicants'),
+    path('succesful_application/<int:id>/', user_views.succesful_application,name ='succesful_application'),
     path('',include('Events.urls'))
 ]
 if settings.DEBUG :

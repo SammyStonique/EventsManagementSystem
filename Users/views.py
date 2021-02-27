@@ -310,7 +310,7 @@ def sendmail(request,id):
     msg['From']= 'otieno.samuel@ezenfinancials.com'
     viewguests = viewevent.guests.all()
     msg['To']= recipients
-    msg.set_content(f'Hello Sir/Madam,\n\n\nI would like to invite you to {viewevent.eventname}.\n\nIt will be held in {viewevent.venue} on {viewevent.date}.\n\nDescription: {viewevent.description}.\n\nKindly confirm your attendance. \n\n\nThank you.')
+    msg.set_content(f'Hello {guest.guestname},\n\n\nI would like to invite you to {viewevent.eventname}.\n\nIt will be held in {viewevent.venue} on {viewevent.date}.\n\nDescription: {viewevent.description}.\n\nKindly confirm your attendance. \n\n\nThank you.')
     
     server = smtplib.SMTP_SSL('mail.ezenfinancials.com',587)
     server.login('otieno.samuel@ezenfinancials.com','@Sillykbian1')
@@ -319,18 +319,29 @@ def sendmail(request,id):
     messages.success(request, f'Invites Succesfully sent')
     return redirect('view_event')
 
-#def guest_registration_email(request,id):
-#    guestregistration = get_object_or_404(GuestRegistration,id=email)
-#    recipients =[obj.email for obj in guestregistration]
+#Sending Emails to succesful applicants
+def succesful_application(request,id):
+    viewinvitesapplications = get_object_or_404(InvitesOnlyRegistration,id=id)
+    applications = viewinvitesapplications.email
+    recipient =[applications]
+    subject = 'Succesful Application'
+    content = f'Hello {viewinvitesapplications.firstname},\n\nYour application  has been approved.\n\nThank you.'
+    send_mail(subject, content, settings.EMAIL_HOST_USER,recipient, fail_silently=False)
+    messages.success(request, f'Approval email Succesfully sent')
+    return redirect('view_invites_only_applications')
+#def succesful_application(request,id):
+#    viewinvitesapplications = get_object_or_404(InvitesOnlyRegistration,id=id)
+#    applications = InvitesOnlyRegistration.objects.all()
+#    recipients =[obj.email for obj in applications]
 #    msg = EmailMessage()
-#    msg['Subject']= f'Registration for the event'
-#    msg['From']= 'ezenfinancialsevents@gmail.com'
-#   msg['To']= recipients
-#    msg.set_content(f'Hello Sir/Madam,\n\n\nYour registration is succesful')
+#    msg['Subject']= 'Succesful Application'
+#    msg['From']= 'otieno.samuel@ezenfinancials.com'
+#    msg['To']= recipients
+#    msg.set_content(f'Hello {viewinvitesapplications.firstname},\n\nYour application  has been approved.\n\nThank you.')
     
-#    server = smtplib.SMTP_SSL('smtp.gmail.com',465)
-#   server.login('ezenfinancialsevents@gmail.com','eventsmanagement')
+#    server = smtplib.SMTP_SSL('mail.ezenfinancials.com',587)
+#    server.login('otieno.samuel@ezenfinancials.com','@Sillykbian1')
 #    server.send_message(msg)
 #    server.quit()
-#    messages.success(request, f'Registration email Succesfully sent')
-#    return redirect('guest_view_events')
+#    messages.success(request, f'Approval email Succesfully sent')
+#    return redirect('invites_only_application')
