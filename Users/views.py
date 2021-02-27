@@ -227,14 +227,20 @@ def reject_application(request, pk):
 	return render(request, 'Users/reject_application.html', context)
 
 #Reject Invites Only application
-def reject_invites_only_application(request, pk):
-	invitesonlyapplication = InvitesOnlyRegistration.objects.get(id=pk)
-	if request.method == "POST":
-		invitesonlyapplication.delete()
-		return redirect('view_invites_only_applications')
-
-	context = {'item':invitesonlyapplication}
-	return render(request, 'Users/reject_invites_only_application.html', context)
+def reject_invites_only_application(request, id):
+    viewinvitesapplications = get_object_or_404(InvitesOnlyRegistration,id=id)
+    if request.method == "POST":
+        applications = viewinvitesapplications.email
+        recipient =[applications]
+        subject = 'Unsuccesful Application'
+        content = f'Hello {viewinvitesapplications.firstname},\n\nYour application for the has been declined.\n\nThank you.'
+        send_mail(subject, content, settings.EMAIL_HOST_USER,recipient, fail_silently=False)
+        messages.success(request, f'Denial email Succesfully sent')
+        viewinvitesapplications.delete()
+        return redirect('view_invites_only_applications')
+        
+    context = {'item':viewinvitesapplications}
+    return render(request, 'Users/reject_invites_only_application.html', context)
 
 
 #Create a guests list
@@ -328,6 +334,11 @@ def succesful_application(request,id):
     content = f'Hello {viewinvitesapplications.firstname},\n\nYour application  has been approved.\n\nThank you.'
     send_mail(subject, content, settings.EMAIL_HOST_USER,recipient, fail_silently=False)
     messages.success(request, f'Approval email Succesfully sent')
+    return redirect('view_invites_only_applications')
+
+def unsuccesful_application(request,id):
+    viewinvitesapplications = get_object_or_404(InvitesOnlyRegistration,id=id)
+    
     return redirect('view_invites_only_applications')
 #def succesful_application(request,id):
 #    viewinvitesapplications = get_object_or_404(InvitesOnlyRegistration,id=id)
