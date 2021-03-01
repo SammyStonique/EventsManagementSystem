@@ -358,7 +358,7 @@ def unsuccesful_application(request,id):
 #    return redirect('invites_only_application')
 
 response = ''
-def ussd_callback():
+def ussd_callback(request):
     global response
     session_id = request.values.get("sessionId", None)
     service_code = request.values.get("serviceCode", None)
