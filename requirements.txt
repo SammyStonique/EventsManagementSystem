@@ -26,7 +26,6 @@ schema==0.7.4
 six==1.15.0
 sqlparse==0.4.1
 urllib3==1.26.3
-ussd-session==0.1.6
 webencodings==0.5.1
 whitenoise==5.2.0
 xhtml2pdf==0.2.5
