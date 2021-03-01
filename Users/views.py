@@ -10,6 +10,7 @@ import smtplib
 from email.message import EmailMessage
 from django.core.mail import send_mail
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt #for the ussd function
 
 
 
@@ -357,29 +358,32 @@ def unsuccesful_application(request,id):
 #    messages.success(request, f'Approval email Succesfully sent')
 #    return redirect('invites_only_application')
 
-response = ''
+@csrf_exempt
 def ussd_callback(request):
-    global response
-    session_id = request.values.get("sessionId", None)
-    service_code = request.values.get("serviceCode", None)
-    phone_number = request.values.get("phoneNumber", None)
-    text = request.values.get("text", "default")
-
-    if text == '':
-        response = "CON What ent type would you want to attend \n"
-        response += "1. Public \n"
-        response += "2. Invites Only"
-    elif text == '1':
-        response = "CON Choose account information you want to view \n "
-        response += "1. Account number \n"
-        response += "2. Account balance"
-    elif text == "1*1":
-        accountNumber = "ACC1001"
-        response = "END Your account number is " + accountNumber
-    elif text == "1*2":
-        accountBalance = "KES 10,000"
-        response = "END Your account balance is " + accountBalance
-    elif text == "2":
-        response = "END Your phone number is " + phone_number
+    if request.method == 'POST':
+        session_id = request.POST.get("sessionId")
+        service_code = request.POST.get("serviceCode")
+        phone_number = request.POST.get("phoneNumber")
+        text = request.POST.get("text")
+        
+        response = ''
+        
+        if text == '':
+            response = "CON What ent type would you want to attend \n"
+            response += "1. Account \n"
+            response += "2. Phone Number"
+        elif text == '1':
+            response = "CON Choose account information you want to view \n "
+            response += "1. Account number \n"
+            response += "2. Account balance"
+        elif text == "1*1":
+            accountNumber = "ACC1001"
+            response = "END Your account number is " + accountNumber
+        elif text == "1*2":
+            accountBalance = "KES 10,000"
+            response = "END Your account balance is " + accountBalance
+        elif text == "2":
+            response = "END Your phone number is " + phone_number
+            
+        return HttpResponse(response)
     
-        return response
