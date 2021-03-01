@@ -424,15 +424,12 @@ def ussd_callback(request):
             response = "CON Enter Your Full Names:"
         elif text == "1*5*3":
             response = "END Thank you for using our service"
-        elif text == "1*6":
-            response = "CON 1. Attend\n"
-            response += "2. Go Back\n"
-            response +=  "3. Exit"
+        elif text == "1*6":response +=  "3. Exit"
         elif text == "1*6*1":
             response = "CON Enter Your Full Names:"
         elif text == "1*6*3":
             response = "END Thank you for using our service"
-        elif text == "1*2":
+        elif text == "2":
             response = "CON Enter special code:"
             
         return HttpResponse(response)
