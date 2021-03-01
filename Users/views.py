@@ -386,7 +386,7 @@ def ussd_callback(request):
             response += "2. Go Back"
         elif text == "1*1*1":
             response = "CON Enter Your Full Names:"
-        elif text == "1*1*1" and text != '':
+        elif text == "1*1*1" and text == 'sam':
             response = "CON Enter Your ID Number:"
         elif text == "1*2":
             response = "CON 1. Attend\n"
