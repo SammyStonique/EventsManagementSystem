@@ -233,7 +233,7 @@ def reject_invites_only_application(request, id):
         applications = viewinvitesapplications.email
         recipient =[applications]
         subject = 'Unsuccesful Application'
-        content = f'Hello {viewinvitesapplications.firstname},\n\nYour application for the has been declined.\n\nThank you.'
+        content = f'Hello {viewinvitesapplications.firstname},\n\nYour application for the event has been declined.\n\nThank you.'
         send_mail(subject, content, settings.EMAIL_HOST_USER,recipient, fail_silently=False)
         messages.success(request, f'Denial email Succesfully sent')
         viewinvitesapplications.delete()
