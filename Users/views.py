@@ -383,36 +383,55 @@ def ussd_callback(request):
             response += "6. Get Together Kilifi "
         elif text == "1*1":
             response = "CON 1. Attend\n"
-            response += "2. Go Back"
+            response += "2. Go Back\n"
+            response +=  "3. Exit"
+        
         elif text == "1*1*1":
             response = "CON Enter Your Full Names:"
         elif text == "1*1*1":
             response = "CON Enter Your ID Number:"
+        elif text == "1*1*3":
+            response = "END Thank you for using our service"
         elif text == "1*2":
             response = "CON 1. Attend\n"
-            response += "2. Go Back"
+            response += "2. Go Back\n"
+            response +=  "3. Exit"
         elif text == "1*2*1":
             response = "CON Enter Your Full Names:"
+        elif text == "1*2*3":
+            response = "END Thank you for using our service"
         elif text == "1*3":
             response = "CON 1. Attend\n"
-            response += "2. Go Back"
+            response += "2. Go Back\n"
+            response +=  "3. Exit"
         elif text == "1*3*1":
             response = "CON Enter Your Full Names:"
+        elif text == "1*3*3":
+            response = "END Thank you for using our service"
         elif text == "1*4":
             response = "CON 1. Attend\n"
-            response += "2. Go Back"
+            response += "2. Go Back\n"
+            response +=  "3. Exit"
         elif text == "1*4*1":
             response = "CON Enter Your Full Names:"
+        elif text == "1*4*3":
+            response = "END Thank you for using our service"
         elif text == "1*5":
             response = "CON 1. Attend\n"
-            response += "2. Go Back"
+            response += "2. Go Back\n"
+            response +=  "3. Exit"
         elif text == "1*5*1":
             response = "CON Enter Your Full Names:"
+        elif text == "1*5*3":
+            response = "END Thank you for using our service"
         elif text == "1*6":
             response = "CON 1. Attend\n"
-            response += "2. Go Back"
+            response += "2. Go Back\n"
+            response +=  "3. Exit"
         elif text == "1*6*1":
             response = "CON Enter Your Full Names:"
+        elif text == "1*6*3":
+            response = "END Thank you for using our service"
         elif text == "1*2":
             response = "CON Enter special code:"
             
