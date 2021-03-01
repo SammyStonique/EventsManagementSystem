@@ -369,21 +369,49 @@ def ussd_callback(request):
         response = ''
         
         if text == '':
-            response = "CON What ent type would you want to attend \n"
-            response += "1. Account \n"
-            response += "2. Phone Number"
+            response = "CON What event type would you want to attend? \n"
+            response += "1. Public \n"
+            response += "2. Invites Only"
         elif text == '1':
-            response = "CON Choose account information you want to view \n "
-            response += "1. Account number \n"
-            response += "2. Account balance"
+            response = "CON Choose public event: \n "
+            response += "1. Get Together Mombasa \n"
+            response += "2. Get Together Nairobi \n"
+            response += "3. Get Together Kisumu \n"
+            response += "4. Get Together Nakuru \n"
+            response += "5. Get Together Naivasha \n"
+            response += "6. Get Together Kilifi "
         elif text == "1*1":
-            accountNumber = "ACC1001"
-            response = "END Your account number is " + accountNumber
+            response = "CON 1. Attend\n"
+            response += "2. Go Back"
+        elif text == "1*1*1":
+            response = "CON Enter Your Full Names:"
         elif text == "1*2":
-            accountBalance = "KES 10,000"
-            response = "END Your account balance is " + accountBalance
-        elif text == "2":
-            response = "END Your phone number is " + phone_number
+            response = "CON 1. Attend\n"
+            response += "2. Go Back"
+        elif text == "1*2*1":
+            response = "CON Enter Your Full Names:"
+        elif text == "1*3":
+            response = "CON 1. Attend\n"
+            response += "2. Go Back"
+        elif text == "1*3*1":
+            response = "CON Enter Your Full Names:"
+        elif text == "1*4":
+            response = "CON 1. Attend\n"
+            response += "2. Go Back"
+        elif text == "1*4*1":
+            response = "CON Enter Your Full Names:"
+        elif text == "1*5":
+            response = "CON 1. Attend\n"
+            response += "2. Go Back"
+        elif text == "1*5*1":
+            response = "CON Enter Your Full Names:"
+        elif text == "1*6":
+            response = "CON 1. Attend\n"
+            response += "2. Go Back"
+        elif text == "1*6*1":
+            response = "CON Enter Your Full Names:"
+        elif text == "1*2":
+            response = "CON Enter special code:"
             
         return HttpResponse(response)
     
