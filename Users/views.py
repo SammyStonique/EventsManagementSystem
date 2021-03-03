@@ -11,9 +11,13 @@ from email.message import EmailMessage
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt #for the ussd function
+from africastalking.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException#for sms
+import africastalking
 
-
-
+username = 'sandbox'
+api_key = '7e209952909369947e27cce5943f8219b359c4dbed11be2bed39f79e5016d75d'
+africastalking.initialize(username, api_key)  
+sms = africastalking.SMS 
 
 #Print events list
 def generate_pdf_events(request,*args,**kwargs):
@@ -119,6 +123,7 @@ def create_event(request):
 
     return render(request,'Users/create_event.html',{'form2':form2})
 
+
 #Guest Registration
 def guest_registration(request,id):
     form4 = GuestRegistrationForm()
@@ -131,15 +136,18 @@ def guest_registration(request,id):
             form4.save()
             name = form4.cleaned_data.get('firstname')
             email =  form4.cleaned_data.get('email')
+            phone_number = form4.cleaned_data.get('phonenumber')
             recipient = [email]
             subject = f'Registration for the {viewevent.eventname} event'
             content = f'Dear {name},\n\nYou have succesfully enrolled for the {viewevent.eventname} event that is to be held on {viewevent.date} in {viewevent.venue}.\n\nDescription: {viewevent.description}.\n\nFor more enquiries, email us at ezenfinancialsevents@gmail.com\n\nSee you there.'
             send_mail(subject, content, settings.EMAIL_HOST_USER,recipient, fail_silently=False)
             messages.success(request,'Success, you will receive a confirmation email')
+            sms.send(f'Dear {name},You have succesfully enrolled for the {viewevent.eventname} event that is to be held on {viewevent.date} in {viewevent.venue}. Check your mail for more details',[f'{phone_number}'], callback = guest_registration)
             return redirect('guest_view_events')
-            
+           
 
     return render(request,'Users/Guests/guest_register.html', {'form4':form4})
+
 
 #Invites Only Event Application
 def invites_only_application(request,id):
@@ -154,11 +162,13 @@ def invites_only_application(request,id):
             form5.save()
             name = form5.cleaned_data.get('firstname')
             email =  form5.cleaned_data.get('email')
+            phone_number = form5.cleaned_data.get('phonenumber')
             recipient = [email]
             subject = f'Registration for the {viewevent.eventname} event'
             content = f'Dear {name},\n\nYour application for the {viewevent.eventname} event has been succesfully received. You will receive a confirmation email.\n\nThank you.'
             send_mail(subject, content, settings.EMAIL_HOST_USER,recipient, fail_silently=False)
             messages.success(request,'Your application has been received. You will be notified if it\'s succesful')
+            sms.send(f'Dear {name}, Your application for the {viewevent.eventname} event has been succesfully received. You will receive a confirmation email.\nThank you.',[f'{phone_number}'], callback = invites_only_application)
             return redirect('guest_view_events')
             
 
@@ -238,6 +248,7 @@ def reject_invites_only_application(request, id):
         send_mail(subject, content, settings.EMAIL_HOST_USER,recipient, fail_silently=False)
         messages.success(request, f'Denial email Succesfully sent')
         viewinvitesapplications.delete()
+        sms.send(f'Dear {viewinvitesapplications.firstname}, Your application for the event has been declined.\nThank you.',[f'{viewinvitesapplications.phonenumber}'], callback = reject_invites_only_application)
         return redirect('view_invites_only_applications')
         
     context = {'item':viewinvitesapplications}
@@ -368,6 +379,8 @@ def ussd_callback(request):
         text = request.POST.get("text")
         
         response = ''
+        mobilenumber = ''
+        username = ''
         
         if text == '':
             response = "CON What event type would you want to attend? \n"
@@ -380,15 +393,30 @@ def ussd_callback(request):
             response += "3. Get Together Kisumu \n"
             response += "4. Get Together Nakuru \n"
             response += "5. Get Together Naivasha \n"
-            response += "6. Get Together Kilifi "
+            response += "6. Get Together Lamu \n"
+            response += "7. Get Together Kwale \n"
+            response += "98. MORE "
+        elif text == '1*98':
+            response += "CON 8. Get Together Kakamega \n"
+            response += "9. Get Together Busia \n"
+            response += "10. Get Together Mandera \n"
+            response += "11. Get Together Eldoret \n"
+            response += "12. Get Together Wajir \n"
+            response += "13. Get Together Uasin Gishu \n"
+            response += "00. Exit "
+        elif text == '1*98*00':
+            response = "END Thank you for using our service"
         elif text == "1*1":
             response = "CON 1. Attend\n"
             response += "2. Go Back\n"
             response +=  "3. Exit"
         
         elif text == "1*1*1":
+            response = "CON Enter Your Mobile Number:"
+            mobilenumber = text
+        elif text == f"{mobilenumber}":
             response = "CON Enter Your Full Names:"
-        elif text == "1*1*1":
+        elif text == f"1*1*1*{username}":
             response = "CON Enter Your ID Number:"
         elif text == "1*1*3":
             response = "END Thank you for using our service"
@@ -433,4 +461,7 @@ def ussd_callback(request):
             response = "CON Enter special code:"
             
         return HttpResponse(response)
-    
+
+
+ 
+        
