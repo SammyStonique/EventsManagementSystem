@@ -22,9 +22,11 @@
                 $(this).find("option:selected").each(function() {
                     var optionValue = $(this).attr("value");
                     if (optionValue == "Invites Only") {
+                        $("#guestslabel").show();
                         $("#id_guests").show();
                     } else {
                         $("#id_guests").hide();
+                        $("#guestslabel").hide();
                     }
                 });
             }).change();

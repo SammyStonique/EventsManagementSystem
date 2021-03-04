@@ -1,8 +1,22 @@
 {% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
 <div class="container" style="background-color: white; color: black;padding:20px 10px;">
-    <legend>Event Applications</legend>
+    <legend>Public Event Applications</legend>
+
     {% if messages %} {% for message in messages %}
     <div class="alert alert-{{ message.tags}}">{{message}}</div> {% endfor %} {% endif %}
+
+    <form action="" method="GET">
+        <table>
+            <tr>
+                <td><label for="{{ publicFilter.form.firstname.id_for_label }}">First Name:</label> {{ publicFilter.form.firstname }}</td>
+                <td><label for="{{ publicFilter.form.lastname.id_for_label }}">Last Name:</label> {{ publicFilter.form.lastname}}</td>
+                <td><label for="{{ publicFilter.form.gender.id_for_label }}">Gender:</label> {{ publicFilter.form.gender }}</td>
+                <td><button class="btn btn-primary" type="submit">Search</button></td>
+            </tr>
+        </table>
+
+    </form>
+
     <table class="table table-sm table-striped">
         <tr>
             <th>First Name</th>
@@ -16,7 +30,7 @@
             <th>Reject</th>
         </tr>
 
-        {% for viewapplication in viewapplications %}
+        {% for viewapplication in page_obj %}
         <tr>
             <td>{{viewapplication.firstname}}</td>
             <td>{{viewapplication.lastname}}</td>
@@ -31,6 +45,28 @@
 
             {%endfor%}
     </table>
+
+    <div class="pagination" style="margin-bottom: 20px;">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="btn btn-sm btn-outline-info">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-outline-info">Previous</a>
+            {% endif %}
+            
+            <span class="current">
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <a href="?page={{num}}" class="btn btn-sm btn-info">{{num}}</a>
+                    {% elif num > page_obj.number|add:'-3' and page_obj.number|add:'3' > num %}
+                        <a href="?page={{num}}" class="btn btn-sm btn-outline-info">{{num}}</a>
+                    {%endif%}
+                {%endfor%}
+            </span> {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-outline-info">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-sm btn-outline-info">Last &raquo;</a> {% endif %}
+        </span>
+    </div>
+
     <a class="btn btn-sm btn-success" href="{% url 'generate_pdf_applicants'%}">Print Applicants List</a>
 </div>
 {%endblock%}

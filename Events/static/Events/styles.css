@@ -118,3 +118,7 @@ footer a {
 #id_guests {
     display: none;
 }
+
+#guestslabel {
+    display: none;
+}

@@ -13,6 +13,8 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt #for the ussd function
 from africastalking.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException#for sms
 import africastalking
+from .filters import *
+from django.core.paginator import Paginator
 
 username = 'sandbox'
 api_key = '7e209952909369947e27cce5943f8219b359c4dbed11be2bed39f79e5016d75d'
@@ -177,21 +179,45 @@ def invites_only_application(request,id):
 def view_event(request):
     viewevents = CreateEvent.objects.all()
     guests = InvitedGuests.objects.all()
-    context = {'viewevents':viewevents,'guests':guests}
+
+    myFilter = CreateEventFilter(request.GET, queryset=viewevents)
+    viewevents = myFilter.qs
+
+    paginator = Paginator(viewevents, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'viewevents':viewevents,'guests':guests,'myFilter':myFilter,'page_obj':page_obj}
 
     return render(request, 'Users/view_event.html',context)
-
+    
 #Event Organizer view of public event guests
 def view_applications(request):
     viewapplications = GuestRegistration.objects.all()
-    context = {'viewapplications':viewapplications}
+
+    publicFilter = GuestRegistrationFilter(request.GET, queryset=viewapplications)
+    viewapplications = publicFilter.qs
+
+    paginator = Paginator(viewapplications, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'viewapplications':viewapplications,'publicFilter':publicFilter,'page_obj':page_obj}
 
     return render(request,'Users/event_applications.html',context)
 
 #Event Organizer view of invites only applications
 def view_invites_only_applications(request):
     viewinvitesapplications = InvitesOnlyRegistration.objects.all()
-    context = {'viewinvitesapplications':viewinvitesapplications}
+
+    invitesFilter = InvitesOnlyRegistrationFilter(request.GET, queryset=viewinvitesapplications)
+    viewinvitesapplications = invitesFilter.qs
+
+    paginator = Paginator(viewinvitesapplications, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'viewinvitesapplications':viewinvitesapplications,'invitesFilter': invitesFilter,'page_obj':page_obj}
 
     return render(request,'Users/invites_only_applications.html',context)
 #Guest view upcoming events
@@ -271,8 +297,15 @@ def create_guests_list(request):
 #View guests list
 def view_guests_list(request):
     viewguests = InvitedGuests.objects.all()
-    context = {'viewguests':viewguests}
+    
+    guestlistFilter = InvitedGuestsFilter(request.GET, queryset=viewguests)
+    viewguests = guestlistFilter.qs
 
+    paginator = Paginator(viewguests, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'viewguests':viewguests,'guestlistFilter':guestlistFilter,'page_obj':page_obj}
     return render(request, 'Users/view_guests_list.html',context)
 
 #Update guests list

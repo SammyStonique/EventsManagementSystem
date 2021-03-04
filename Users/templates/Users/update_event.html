@@ -1,14 +1,33 @@
 {% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
 
-<div class="container" style="background-color: white; color: black;">
+<div class="container" style="background-color: white; color: black;padding:20px 10px;">
     {% if messages %} {% for message in messages %}
     <div class="alert alert-{{ message.tags}}">{{message}}</div> {% endfor %} {% endif %}
     <legend>
         Update Event
     </legend>
     <form method="POST">
-        {%csrf_token%} {{form2.as_p}}
-        <button class='btn btn-success' type="submit">Update</button>
+        {%csrf_token%}
+        <table>
+            <tr>
+                <td class="table-details"><label for="{{ form2.eventtype.id_for_label }}">Event Type:</label> {{ form2.eventtype }}</td>
+                <td class="table-details"><label for="{{ form2.eventname.id_for_label }}">Event Name:</label> {{ form2.eventname }}</td>
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form2.venue.id_for_label }}">Venue:</label> {{ form2.venue }}</td>
+                <td class="table-details"><label for="{{ form2.description.id_for_label }}">Description:</label> {{ form2.description }}</td>
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form2.date.id_for_label }}">Date:</label> {{ form2.date }}</td>
+            </tr>
+            <td><label id='guestslabel' for="{{ form2.guests.id_for_label }}">Guests:</label> {{ form2.guests }}</td>
+
+
+
+        </table>
+        <div style="margin-top: 20px;">
+            <button class='btn btn-success' type="submit">Update</button>
+        </div>
     </form>
 
 </div>

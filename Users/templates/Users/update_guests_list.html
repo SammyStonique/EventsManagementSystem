@@ -1,13 +1,27 @@
 {% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
 
-<div class="container" style="background-color: white; color: black;">
+<div class="container" style="background-color: white; color: black;padding:20px 10px;">
     {% if messages %} {% for message in messages %}
     <div class="alert alert-{{ message.tags}}">{{message}}</div> {% endfor %} {% endif %}
     <legend>
         Update Guest List
     </legend>
     <form method="POST">
-        {%csrf_token%} {{form3.as_p}}
+        {%csrf_token%}
+        <table>
+            <tr>
+                <td class="table-details"><label for="{{ form3.guesttitle.id_for_label }}">Guest Title:</label> {{ form3.guesttitle }}</td>
+                <td class="table-details"><label for="{{ form3.guestname.id_for_label }}">Guest Name:</label> {{ form3.guestname }}</td>
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form3.email.id_for_label }}">Email:</label> {{ form3.email }}</td>
+                <td class="table-details"><label for="{{ form3.identificationnumber.id_for_label }}">ID Number:</label> {{ form3.identificationnumber }}</td>
+            </tr>
+            <tr>
+                <td class="table-details"><label for="{{ form3.guestrole.id_for_label }}">Guest Role:</label> {{ form3.guestrole }}</td>
+            </tr>
+
+        </table>
         <button class='btn btn-success' type="submit">Update</button>
     </form>
 
