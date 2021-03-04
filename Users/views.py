@@ -16,6 +16,7 @@ import africastalking
 from .filters import *
 from django.core.paginator import Paginator
 
+setattr(africastalking[__name__], 'SMS', 'SMSService')
 username = 'sandbox'
 api_key = '7e209952909369947e27cce5943f8219b359c4dbed11be2bed39f79e5016d75d'
 africastalking.initialize(username, api_key)  
