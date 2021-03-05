@@ -1,7 +1,6 @@
 {% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
 
 <div class="container" style="background-color: white; color: black;padding:20px 10px;">
-    {% if user.is_authenticated %}
     <legend>My Events</legend>
 
     {% if messages %} {% for message in messages %}
@@ -73,8 +72,6 @@
         <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-sm btn-outline-info">Last &raquo;</a> {% endif %}
         </span>
     </div>
-    <a class="btn btn-sm btn-success" href="{% url 'generate_pdf_events'%}">Print Events List</a> {%else%}
-    <div>Permission denied!!</div>
-    {%endif%}
+    <a class="btn btn-sm btn-success" href="{% url 'generate_pdf_events'%}">Print Events List</a>
 </div>
 {%endblock%}

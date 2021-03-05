@@ -23,6 +23,7 @@ africastalking.initialize(username, api_key)
 sms = africastalking.SMS 
 
 #Print events list
+@login_required
 def generate_pdf_events(request,*args,**kwargs):
         viewevents = CreateEvent.objects.all()
         template = get_template('Users/print_event_list.html')
@@ -41,6 +42,7 @@ def generate_pdf_events(request,*args,**kwargs):
         return HttpResponse("Not found")
 
 #Print guests list
+@login_required
 def generate_pdf_guests(request,*args,**kwargs):
         viewguests = InvitedGuests.objects.all()
         template = get_template('Users/print_guest_list.html')
@@ -59,6 +61,7 @@ def generate_pdf_guests(request,*args,**kwargs):
         return HttpResponse("Not found")
 
 #Print Applicants list
+@login_required
 def generate_pdf_applicants(request,*args,**kwargs):
         viewapplications = GuestRegistration.objects.all()
         template = get_template('Users/print_applicants_list.html')
@@ -77,6 +80,7 @@ def generate_pdf_applicants(request,*args,**kwargs):
         return HttpResponse("Not found")
 
 #Print invites only list
+@login_required
 def generate_pdf_invites_only_applicants(request,*args,**kwargs):
         viewinvitesapplications = InvitesOnlyRegistration.objects.all()
         template = get_template('Users/print_invites_applications.html')
@@ -94,6 +98,7 @@ def generate_pdf_invites_only_applicants(request,*args,**kwargs):
             return response
         return HttpResponse("Not found")
 # Create your views here.
+
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -112,6 +117,7 @@ def profile(request):
     return render(request, 'Users/profile.html')
 
 #Create an event
+@login_required
 def create_event(request):
     form2 = CreateEventForm()
     viewevents = CreateEvent.objects.all()
@@ -177,6 +183,7 @@ def invites_only_application(request,id):
 
     return render(request,'Users/Guests/invites_only_registration.html', {'form5':form5})
 #View events list
+@login_required
 def view_event(request):
     viewevents = CreateEvent.objects.all()
     guests = InvitedGuests.objects.all()
@@ -193,6 +200,7 @@ def view_event(request):
     return render(request, 'Users/view_event.html',context)
     
 #Event Organizer view of public event guests
+@login_required
 def view_applications(request):
     viewapplications = GuestRegistration.objects.all()
 
@@ -208,6 +216,7 @@ def view_applications(request):
     return render(request,'Users/event_applications.html',context)
 
 #Event Organizer view of invites only applications
+@login_required
 def view_invites_only_applications(request):
     viewinvitesapplications = InvitesOnlyRegistration.objects.all()
 
@@ -230,6 +239,7 @@ def guest_view_events(request):
     return render(request, 'Users/Guests/guest_view_events.html',context)
 
 #Update events list
+@login_required
 def update_event(request, pk):
 
 	event = CreateEvent.objects.get(id=pk)
@@ -245,6 +255,7 @@ def update_event(request, pk):
 	return render(request, 'Users/update_event.html', context)
 
 #Delete an event
+@login_required
 def delete_event(request, pk):
 	event = CreateEvent.objects.get(id=pk)
 	if request.method == "POST":
@@ -255,6 +266,7 @@ def delete_event(request, pk):
 	return render(request, 'Users/delete_event.html', context)
 
 #Reject a public event application
+@login_required
 def reject_application(request, pk):
 	application = GuestRegistration.objects.get(id=pk)
 	if request.method == "POST":
@@ -265,6 +277,7 @@ def reject_application(request, pk):
 	return render(request, 'Users/reject_application.html', context)
 
 #Reject Invites Only application
+@login_required
 def reject_invites_only_application(request, id):
     viewinvitesapplications = get_object_or_404(InvitesOnlyRegistration,id=id)
     if request.method == "POST":
@@ -283,6 +296,7 @@ def reject_invites_only_application(request, id):
 
 
 #Create a guests list
+@login_required
 def create_guests_list(request):
     form3 = InvitedGuestsForm()
     if request.method == 'POST':
@@ -296,6 +310,7 @@ def create_guests_list(request):
     return render(request,'Users/create_guests_list.html', {'form3': form3})
 
 #View guests list
+@login_required
 def view_guests_list(request):
     viewguests = InvitedGuests.objects.all()
     
@@ -310,6 +325,7 @@ def view_guests_list(request):
     return render(request, 'Users/view_guests_list.html',context)
 
 #Update guests list
+@login_required
 def update_guests_list(request, pk):
 
 	guestlist = InvitedGuests.objects.get(id=pk)
@@ -325,6 +341,7 @@ def update_guests_list(request, pk):
 	return render(request, 'Users/update_guests_list.html', context)
 
 #Delete guest
+@login_required
 def delete_guests_list(request, pk):
 	guestlist = InvitedGuests.objects.get(id=pk)
 	if request.method == "POST":
@@ -334,24 +351,9 @@ def delete_guests_list(request, pk):
 	context = {'item':guestlist}
 	return render(request, 'Users/delete_guests_list.html', context)
 
-#Invite Guests
-def invite_guests(request):
-    viewguests = InvitedGuests.objects.all()
-    context = {'viewguests':viewguests}
-
-    return render(request, 'Users/invite_guests.html',context)
-
-def save_invite_guests(request):
-    if request.method == 'POST':
-        if request.POST.get('guestname'):
-            saveguestname = InvitedGuests()
-            saveguestname.guestname = request.POST.get('guestname')
-            saveguestname.save()
-            return redirect('view_invited_guests')
-    else:
-        return render(request,'Users/invite_guests.html')
 
 #Sending Mails
+@login_required
 def sendmail(request,id):
 
     viewevent = get_object_or_404(CreateEvent,id=id)
@@ -372,6 +374,7 @@ def sendmail(request,id):
     return redirect('view_event')
 
 #Sending Emails to succesful applicants
+@login_required
 def succesful_application(request,id):
     viewinvitesapplications = get_object_or_404(InvitesOnlyRegistration,id=id)
     applications = viewinvitesapplications.email
