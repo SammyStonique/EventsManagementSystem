@@ -1,4 +1,4 @@
-{% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
+{% if user.is_authenticated %} {% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {%block content%}
 <div class="container" style="background-color: white; color: black;padding:20px 10px;">
     <legend>My Events</legend>
 
@@ -73,4 +73,6 @@
     </div>
     <a class="btn btn-sm btn-success" href="{% url 'generate_pdf_events'%}">Print Events List</a>
 </div>
-{%endblock%}
+{%endblock%} {%else%}
+<div>Permission denied!!</div>
+{%endif%}
