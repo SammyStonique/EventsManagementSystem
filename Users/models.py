@@ -15,8 +15,8 @@ class Profile(models.Model):
 
 class CreateEvent(models.Model):
 
-    EVENTTYPE_CHOICES = (('Public Event', 'Public Event'),('Invites Only','Invites Only'))
-    GUEST_LIST = (('Dr.', 'Dr.'),('Sir','Sir'),('Madam','Madam'),('Mr.','Mr.'),('Mrs.','Mrs.'))
+    EVENTTYPE_CHOICES = (('','Select Gender'),('Public Event', 'Public Event'),('Invites Only','Invites Only'))
+    GUEST_LIST = (('','Select Gender'),('Dr.', 'Dr.'),('Sir','Sir'),('Madam','Madam'),('Mr.','Mr.'),('Mrs.','Mrs.'))
     
     eventtype = models.CharField(max_length=100,choices=EVENTTYPE_CHOICES,default='')
     eventname = models.CharField(max_length=100)
@@ -29,8 +29,8 @@ class CreateEvent(models.Model):
         return f'{self.eventname}'
 
 class InvitedGuests(models.Model):
-    GUEST_TITLE = (('Dr.', 'Dr.'),('Sir','Sir'),('Madam','Madam'),('Mr.','Mr.'),('Mrs.','Mrs.'))
-    GUEST_ROLE = (('Guest of Honour','Guest of Honour'),('Main Speaker','Main Speaker'),('Attendee','Attendee'))
+    GUEST_TITLE = (('','Select Title'),('Dr.', 'Dr.'),('Sir','Sir'),('Madam','Madam'),('Mr.','Mr.'),('Mrs.','Mrs.'))
+    GUEST_ROLE = (('','Select Role'),('Guest of Honour','Guest of Honour'),('Main Speaker','Main Speaker'),('Attendee','Attendee'))
     
 
     guesttitle = models.CharField(max_length=100,choices=GUEST_TITLE,default='')
@@ -44,8 +44,8 @@ class InvitedGuests(models.Model):
         return self.guestname
 
 class GuestRegistration(models.Model):
-    GENDER = (('Male','Male'),('Female','Female'),('Other','Other'))
-    COUNTY = (('Kisumu','Kisumu'),('Nairobi','Nairobi'),('Mombasa','Mombasa'),('Siaya','Siaya'))
+    GENDER = (('','Select Gender'),('Male','Male'),('Female','Female'),('Other','Other'))
+    COUNTY = (('','Select County'),('Kisumu','Kisumu'),('Nairobi','Nairobi'),('Mombasa','Mombasa'),('Siaya','Siaya'))
     
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
@@ -59,10 +59,10 @@ class GuestRegistration(models.Model):
         return self.firstname
 
 class InvitesOnlyRegistration(models.Model):
-    TITLE = (('Dr.', 'Dr.'),('Sir','Sir'),('Madam','Madam'),('Mr.','Mr.'),('Mrs.','Mrs.'))
-    GENDER = (('Male','Male'),('Female','Female'),('Other','Other'))
-    COUNTY = (('Kisumu','Kisumu'),('Nairobi','Nairobi'),('Mombasa','Mombasa'),('Siaya','Siaya'))
-    RESERVATION = (('VVIP','VVIP'),('VIP','VIP'),('Normal','Normal'))
+    TITLE = (('','Select Title'),('Dr.', 'Dr.'),('Sir','Sir'),('Madam','Madam'),('Mr.','Mr.'),('Mrs.','Mrs.'))
+    GENDER = (('','Select Gender'),('Male','Male'),('Female','Female'),('Other','Other'))
+    COUNTY = (('','Select County'),('Kisumu','Kisumu'),('Nairobi','Nairobi'),('Mombasa','Mombasa'),('Siaya','Siaya'))
+    RESERVATION = (('','Select Reservation'),('VVIP','VVIP'),('VIP','VIP'),('Normal','Normal'))
 
     title = models.CharField(max_length=100,choices=TITLE,default='')
     firstname = models.CharField(max_length=100)

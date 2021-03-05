@@ -11,12 +11,12 @@ from email.message import EmailMessage
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt #for the ussd function
-from africastalking.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException#for sms
+#from africastalking.AfricasTalkingGateway import AfricasTalkingGateway, AfricasTalkingGatewayException#for sms
 import africastalking
 from .filters import *
 from django.core.paginator import Paginator
 
-setattr(africastalking[__name__], 'SMS', 'SMSService')
+
 username = 'sandbox'
 api_key = '7e209952909369947e27cce5943f8219b359c4dbed11be2bed39f79e5016d75d'
 africastalking.initialize(username, api_key)  
