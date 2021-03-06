@@ -153,7 +153,7 @@ def guest_registration(request,id):
             content = f'Dear {name},\n\nYou have succesfully enrolled for the {viewevent.eventname} event that is to be held on {viewevent.date} in {viewevent.venue}.\n\nDescription: {viewevent.description}.\n\nFor more enquiries, email us at ezenfinancialsevents@gmail.com\n\nSee you there.'
             send_mail(subject, content, settings.EMAIL_HOST_USER,recipient, fail_silently=False)
             messages.success(request,'Success, you will receive a confirmation email')
-            sms.send(f'Dear {name},You have succesfully enrolled for the {viewevent.eventname} event that is to be held on {viewevent.date} in {viewevent.venue}. Check your mail for more details',[f'{phone_number}'], callback = guest_registration)
+            #sms.send(f'Dear {name},You have succesfully enrolled for the {viewevent.eventname} event that is to be held on {viewevent.date} in {viewevent.venue}. Check your mail for more details',[f'{phone_number}'], callback = guest_registration)
             return redirect('guest_view_events')
            
 
@@ -179,7 +179,7 @@ def invites_only_application(request,id):
             content = f'Dear {name},\n\nYour application for the {viewevent.eventname} event has been succesfully received. You will receive a confirmation email.\n\nThank you.'
             send_mail(subject, content, settings.EMAIL_HOST_USER,recipient, fail_silently=False)
             messages.success(request,'Your application has been received. You will be notified if it\'s succesful')
-            sms.send(f'Dear {name}, Your application for the {viewevent.eventname} event has been succesfully received. You will receive a confirmation email.\nThank you.',[f'{phone_number}'], callback = invites_only_application)
+            #sms.send(f'Dear {name}, Your application for the {viewevent.eventname} event has been succesfully received. You will receive a confirmation email.\nThank you.',[f'{phone_number}'], callback = invites_only_application)
             return redirect('guest_view_events')
             
 
@@ -291,7 +291,7 @@ def reject_invites_only_application(request, id):
         send_mail(subject, content, settings.EMAIL_HOST_USER,recipient, fail_silently=False)
         messages.success(request, f'Denial email Succesfully sent')
         viewinvitesapplications.delete()
-        sms.send(f'Dear {viewinvitesapplications.firstname}, Your application for the event has been declined.\nThank you.',[f'{viewinvitesapplications.phonenumber}'], callback = reject_invites_only_application)
+        #sms.send(f'Dear {viewinvitesapplications.firstname}, Your application for the event has been declined.\nThank you.',[f'{viewinvitesapplications.phonenumber}'], callback = reject_invites_only_application)
         return redirect('view_invites_only_applications')
         
     context = {'item':viewinvitesapplications}
