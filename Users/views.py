@@ -146,6 +146,7 @@ def guest_registration(request,id):
         if form4.is_valid:
             new_form4 = form4.save(commit=False)
             new_form4.event_organizer = viewevent.created_by
+            new_form4.event_applied_for = viewevent.eventname
             new_form4.save()
             name = form4.cleaned_data.get('firstname')
             email =  form4.cleaned_data.get('email')
@@ -172,7 +173,10 @@ def invites_only_application(request,id):
         
 
         if form5.is_valid:
-            form5.save()
+            new_form5 = form5.save(commit=False)
+            new_form5.event_organizer = viewevent.created_by
+            new_form5.event_applied_for = viewevent.eventname
+            new_form5.save()
             name = form5.cleaned_data.get('firstname')
             email =  form5.cleaned_data.get('email')
             phone_number = form5.cleaned_data.get('phonenumber')
@@ -224,7 +228,8 @@ def view_applications(request):
 #Event Organizer view of invites only applications
 @login_required
 def view_invites_only_applications(request):
-    viewinvitesapplications = InvitesOnlyRegistration.objects.all()
+    user = request.user
+    viewinvitesapplications = InvitesOnlyRegistration.objects.filter(event_organizer=user)
 
     invitesFilter = InvitesOnlyRegistrationFilter(request.GET, queryset=viewinvitesapplications)
     viewinvitesapplications = invitesFilter.qs

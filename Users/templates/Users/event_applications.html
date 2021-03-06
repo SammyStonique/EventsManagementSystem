@@ -26,6 +26,7 @@
             <th>Phone Number</th>
             <th>Gender</th>
             <th>County</th>
+            <th>Event Applied For</th>
             <th>Accept</th>
             <th>Reject</th>
         </tr>
@@ -39,6 +40,7 @@
             <td>{{viewapplication.phonenumber}}</td>
             <td>{{viewapplication.gender}}</td>
             <td>{{viewapplication.county}}</td>
+            <td>{{viewapplication.event_applied_for}}</td>
             <td><a class="btn btn-sm btn-info" href="">Accept</a></td>
 
             <td><a class="btn btn-sm btn-danger" href="{% url 'reject_application' viewapplication.id%}">Reject</a></td>

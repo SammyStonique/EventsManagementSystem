@@ -27,6 +27,7 @@
             <th>Gender</th>
             <th>County</th>
             <th>Reservation</th>
+            <th>Event Applied For</th>
             <th>Accept</th>
             <th>Reject</th>
         </tr>
@@ -42,6 +43,7 @@
             <td>{{viewinvitesapplication.gender}}</td>
             <td>{{viewinvitesapplication.county}}</td>
             <td>{{viewinvitesapplication.reservation}}</td>
+            <td>{{viewinvitesapplication.event_applied_for}}</td>
             <td><a class="btn btn-sm btn-info" href="{% url 'succesful_application' viewinvitesapplication.id %}">Accept</a></td>
 
             <td><a class="btn btn-sm btn-danger" href="{% url 'reject_invites_only_application' viewinvitesapplication.id%}">Reject</a></td>

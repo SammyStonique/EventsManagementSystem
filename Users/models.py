@@ -57,6 +57,7 @@ class GuestRegistration(models.Model):
     gender = models.CharField(max_length=100,choices=GENDER,default='')
     county = models.CharField(max_length=100,choices=COUNTY,default='')
     event_organizer = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    event_applied_for = models.CharField(max_length=100,null=True)
 
     def __str__(self):
         return self.firstname
@@ -76,6 +77,8 @@ class InvitesOnlyRegistration(models.Model):
     gender = models.CharField(max_length=100,choices=GENDER,default='')
     county = models.CharField(max_length=100,choices=COUNTY,default='')
     reservation = models.CharField(max_length=100, choices=RESERVATION,default='')
+    event_organizer = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    event_applied_for = models.CharField(max_length=100,null=True)
 
     def __str__(self):
         return self.firstname
