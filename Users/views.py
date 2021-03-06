@@ -119,14 +119,16 @@ def profile(request):
 #Create an event
 @login_required
 def create_event(request):
+    
     form2 = CreateEventForm()
-    viewevents = CreateEvent.objects.all()
     guests = InvitedGuests.objects.all()
     if request.method == 'POST':
         form2 = CreateEventForm(request.POST)
 
         if form2.is_valid():
-            form2.save()
+            new_form2 = form2.save(commit=False)
+            new_form2.created_by = request.user
+            new_form2.save()
             messages.success(request,'Event successfully created')
             return redirect('view_event')
 
@@ -185,8 +187,9 @@ def invites_only_application(request,id):
 #View events list
 @login_required
 def view_event(request):
-    viewevents = CreateEvent.objects.all()
-    guests = InvitedGuests.objects.all()
+    user = request.user
+    viewevents = CreateEvent.objects.filter(created_by=user)
+    guests = InvitedGuests.objects.filter(created_by=user)
 
     myFilter = CreateEventFilter(request.GET, queryset=viewevents)
     viewevents = myFilter.qs
@@ -302,7 +305,9 @@ def create_guests_list(request):
     if request.method == 'POST':
         form3 = InvitedGuestsForm(request.POST)
         if form3.is_valid():
-            form3.save()
+            new_form3 = form3.save(commit=False)
+            new_form3.created_by = request.user
+            new_form3.save()
             messages.success(request, f'Guest added succesfully')
             return redirect('view_guests_list')
     else:
@@ -312,7 +317,8 @@ def create_guests_list(request):
 #View guests list
 @login_required
 def view_guests_list(request):
-    viewguests = InvitedGuests.objects.all()
+    user = request.user
+    viewguests = InvitedGuests.objects.filter(created_by=user)
     
     guestlistFilter = InvitedGuestsFilter(request.GET, queryset=viewguests)
     viewguests = guestlistFilter.qs

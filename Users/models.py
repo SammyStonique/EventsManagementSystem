@@ -15,7 +15,7 @@ class Profile(models.Model):
 
 class CreateEvent(models.Model):
 
-    EVENTTYPE_CHOICES = (('','Select Gender'),('Public Event', 'Public Event'),('Invites Only','Invites Only'))
+    EVENTTYPE_CHOICES = (('','Select Event Type'),('Public Event', 'Public Event'),('Invites Only','Invites Only'))
     GUEST_LIST = (('','Select Gender'),('Dr.', 'Dr.'),('Sir','Sir'),('Madam','Madam'),('Mr.','Mr.'),('Mrs.','Mrs.'))
     
     eventtype = models.CharField(max_length=100,choices=EVENTTYPE_CHOICES,default='')
@@ -24,6 +24,7 @@ class CreateEvent(models.Model):
     description = models.CharField(max_length=100)
     date = models.DateField()
     guests = models.ManyToManyField('InvitedGuests')
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
 
     def __str__(self):
         return f'{self.eventname}'
@@ -38,6 +39,7 @@ class InvitedGuests(models.Model):
     email= models.EmailField(max_length=100)
     identificationnumber = models.CharField(max_length=100)
     guestrole = models.CharField(max_length=100,choices=GUEST_ROLE,default='')
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
     contribution = models.CharField(max_length=100)
 
     def __str__(self):
