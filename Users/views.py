@@ -144,7 +144,9 @@ def guest_registration(request,id):
         
 
         if form4.is_valid:
-            form4.save()
+            new_form4 = form4.save(commit=False)
+            new_form4.event_organizer = viewevent.created_by
+            new_form4.save()
             name = form4.cleaned_data.get('firstname')
             email =  form4.cleaned_data.get('email')
             phone_number = form4.cleaned_data.get('phonenumber')
@@ -205,7 +207,8 @@ def view_event(request):
 #Event Organizer view of public event guests
 @login_required
 def view_applications(request):
-    viewapplications = GuestRegistration.objects.all()
+    user = request.user
+    viewapplications = GuestRegistration.objects.filter(event_organizer= user)
 
     publicFilter = GuestRegistrationFilter(request.GET, queryset=viewapplications)
     viewapplications = publicFilter.qs

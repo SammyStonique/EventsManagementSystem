@@ -10,6 +10,7 @@
             <th>Venue</th>
             <th>Description</th>
             <th>Date</th>
+            <th>Event Organizer</th>
             <th>Attend</th>
 
         </tr>
@@ -21,6 +22,7 @@
             <td>{{viewevent.venue}}</td>
             <td>{{viewevent.description}}</td>
             <td>{{viewevent.date}}</td>
+            <td>{{viewevent.created_by}}</td>
             {% if viewevent.eventtype == 'Public Event' %}
             <td><a class="btn btn-sm btn-success" href="{% url 'guest_registration' viewevent.id%}">Attend</a></td>
             {%else%}

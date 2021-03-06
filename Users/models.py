@@ -56,6 +56,7 @@ class GuestRegistration(models.Model):
     phonenumber = models.CharField(max_length=100)
     gender = models.CharField(max_length=100,choices=GENDER,default='')
     county = models.CharField(max_length=100,choices=COUNTY,default='')
+    event_organizer = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
 
     def __str__(self):
         return self.firstname
