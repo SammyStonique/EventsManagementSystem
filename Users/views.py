@@ -32,7 +32,11 @@ sms = africastalking.SMS
 
 
 # Create your views here.
+def contact(request):
+    return render(request,'Users/contact.html')
 
+def about(request):
+    return render(request,'Users/about.html')
 def register(request):
     form = RegistrationForm()
     if request.method == 'POST':
