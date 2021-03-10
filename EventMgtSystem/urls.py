@@ -28,6 +28,7 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="Users/password_reset_confirm.html"), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='Users/password_reset_complete.html'), name='password_reset_complete'),      
     path('profile/', user_views.profile,name= 'profile'),
+    path('register/',user_views.register,name = 'register'),
     path('create_event/', user_views.create_event,name= 'create_event'),
     path('view_event/', user_views.view_event,name= 'view_event'),
     path('update_event/<str:pk>/', user_views.update_event, name="update_event"),
@@ -53,6 +54,7 @@ urlpatterns = [
     path('print_invites_only_applications/', user_views.generate_pdf_invites_only_applicants,name ='generate_pdf_invites_only_applicants'),
     path('succesful_application/<int:id>/', user_views.succesful_application,name ='succesful_application'),
     path('ussd_callback/', user_views.ussd_callback,name = 'ussd_callback'),
+    path('events_report/', user_views.events_report, name = 'events_report'),
     path('',include('Events.urls'))
 ]
 if settings.DEBUG :

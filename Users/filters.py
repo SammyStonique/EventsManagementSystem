@@ -34,3 +34,11 @@ class InvitesOnlyRegistrationFilter(django_filters.FilterSet):
     class Meta:
         model = InvitesOnlyRegistration
         fields = ['firstname','gender','reservation']
+
+class GuestViewEventFilter(django_filters.FilterSet):
+
+    eventname = CharFilter(field_name='eventname',lookup_expr='icontains')
+    venue = CharFilter(field_name='venue',lookup_expr='icontains')
+    class Meta:
+        model = CreateEvent
+        fields = ['created_by','eventname','venue']

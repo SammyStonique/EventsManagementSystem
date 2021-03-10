@@ -1,12 +1,60 @@
-{% extends 'Events/base.html'%}{%load crispy_forms_tags%} {% block content%}
-<div class="content-section">
-    <div class="media">
-        <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
-        <div class="media-body">
-            <h2 class="account-heading">{{user.username}}</h2>
-            <p class="text-secondary">{{ user.email}}</p>
+{% extends 'Events/base2.html'%}{%load crispy_forms_tags%} {% block content%}
+<div class="container">
+    <div class="content-section">
+
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-{{ message.tags}}">{{message}}</div> {% endfor %} {% endif %}
+
+        <div class="row">
+            <div class="col-md-3">
+                <img class="rounded-circle account-img" style="height: 125px;width: 125px;" src="{{user.profile.image.url}}">
+            </div>
+            <div class="col-md-3">
+                <h2 class="account-heading" style="color: black;">{{user.username}}</h2>
+                <p class="text-secondary" style="color: black; margin-bottom: 20px;">{{ user.email}}</p>
+            </div>
         </div>
+        <!-- FORM HERE -->
+        <form action="" method="POST" enctype="multipart/form-data">
+            {%csrf_token%}
+            <table>
+                <tr>
+                    <td class="table-details" style="height: 70px;color: black;"><label for="{{ user_form.bio.id_for_label }}">Username:</label> {{ user_form.username }}</td>
+                    <td class="table-details" style="height: 70px;color: black;"><label for="{{ user_form.bio.id_for_label }}">Email:</label> {{ user_form.email }}</td>
+                </tr>
+                <tr>
+                    <td class="table-details" style="height: 70px;color: black;"><label for="{{ profile_form.bio.id_for_label }}">Bio:</label> {{ profile_form.bio }}</td>
+                </tr>
+                <tr>
+                    <td class="table-details" style="height: 70px;color: black;"><label for="{{ profile_form.birthdate.id_for_label }}">Birthday:</label> {{ profile_form.birthdate }}</td>
+                    <td class="table-details" style="height: 70px;color: black;"><label for="{{ profile_form.gender.id_for_label }}">Gender:</label> {{ profile_form.gender }}</td>
+
+                </tr>
+                <tr>
+                    <td class="table-details" style="height: 70px;color: black;"><label for="{{ profile_form.contact.id_for_label }}">Contact:</label> {{ profile_form.contact }}</td>
+                    <td class="table-details" style="height: 70px;color: black;"><label for="{{ profile_form.city.id_for_label }}">City:</label> {{ profile_form.city }}</td>
+
+                </tr>
+                <tr>
+                    <td class="table-details" style="height: 70px;color: black;"><label for="{{ profile_form.county.id_for_label }}">County:</label> {{ profile_form.county }}</td>
+                    <td class="table-details" style="height: 70px;color: black;"><label for="{{ profile_form.religion.id_for_label }}">Religion:</label> {{ profile_form.religion }}</td>
+
+                </tr>
+                <tr>
+                    <td class="table-details" style="height: 70px;color: black;"><label for="{{ profile_form.image.id_for_label }}">Profile Pic:</label> {{ profile_form.image }}</td>
+                </tr>
+
+            </table>
+
+            <div class="row">
+                <div class="col-md-2" style="margin-top: 20px;">
+                    <a href=""><button class='btn btn-success' type="submit">Update Profile</button>
+                </div>
+                
+            </div>
+
+        </form>
     </div>
-    <!-- FORM HERE -->
 </div>
+
 {% endblock content%}
