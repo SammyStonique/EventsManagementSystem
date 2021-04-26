@@ -27,7 +27,7 @@ SECRET_KEY = 'yip$&6ava@fo*e1vhcdrxdjret#y7)g(ve16fano#7e$ix!o1n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ezenevents.herokuapp.com','localhost','https://91e87c5d46fc.ngrok.io']
+ALLOWED_HOSTS = ['ezenevents.herokuapp.com','localhost']
 
 
 # Application definition
@@ -136,10 +136,10 @@ LOGIN_REDIRECT_URL = 'events-homepage'
 LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.ezenfinancials.com'
+EMAIL_HOST = ''
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'otieno.samuel@ezenfinancials.com'
-EMAIL_HOST_PASSWORD = '@Sillykbian1'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 
 django_heroku.settings(locals())
