@@ -25,8 +25,8 @@ from reportlab.lib.pagesizes import letter,A4
 #from reportlab.lib.units import inch
 #from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 
-username = 'sandbox'
-api_key = '7e209952909369947e27cce5943f8219b359c4dbed11be2bed39f79e5016d75d'
+username = 'your africastalking username'
+api_key = 'your africastalking api_key'
 africastalking.initialize(username, api_key)  
 sms = africastalking.SMS 
 
@@ -156,13 +156,13 @@ def sendmail(request,id):
     recipients =[obj.email for obj in guests]
     msg = EmailMessage()
     msg['Subject']= f'Invitation to {viewevent.eventname} event'
-    msg['From']= 'otieno.samuel@ezenfinancials.com'
+    msg['From']= ''
     viewguests = viewevent.guests.all()
     msg['To']= recipients
     msg.set_content(f'Hello {guest.guestname},\n\n\nI would like to invite you to {viewevent.eventname}.\n\nIt will be held in {viewevent.venue} on {viewevent.date}.\n\nDescription: {viewevent.description}.\n\nKindly confirm your attendance. \n\n\nThank you.')
     
-    server = smtplib.SMTP_SSL('mail.ezenfinancials.com',587)
-    server.login('otieno.samuel@ezenfinancials.com','@Sillykbian1')
+    server = smtplib.SMTP_SSL('your mail host',587)
+    server.login('your email address','email password')
     server.send_message(msg)
     server.quit()
     messages.success(request, f'Invites Succesfully sent')
