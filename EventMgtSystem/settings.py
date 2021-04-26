@@ -136,10 +136,10 @@ LOGIN_REDIRECT_URL = 'events-homepage'
 LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = ''
+EMAIL_HOST = 'your email host'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = 'your email address'
+EMAIL_HOST_PASSWORD = 'your email password'
 
 django_heroku.settings(locals())
